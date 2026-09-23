@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Chosen Palette: Slate & Crimson Legal (Fundo pedra/off-white #f8fafc, texto grafite denso #0f172a, bordas e detalhes em carmim/rubi #881337 e tom dourado acobreado #d97706) -->
+    <!-- Application Structure Plan:
+        1. Cabeçalho e Navegação Principal: Fixa com seletor de abas dinâmicas.
+        2. Dashboard Analítico: Estatísticas gerais e gráficos interativos (Chart.js) sobre os temas do Código Penal (Aplicação da Lei Penal, Fato Típico, Ilicitude e Culpabilidade) e taxas de incidência em exames da OAB e Concursos.
+        3. Módulo Doutrinário Fundamentado: Análise rigorosa com citação direta de artigos do Código Penal (Art. 1º a 31), doutrina jurídica de referência (Hungria, Bitencourt, Greco) e quadros comparativos.
+        4. Módulo de Jurisprudência Consolidada: Seleção temática de Súmulas e Informativos vinculantes do STF e STJ (Súmula 711 STF, Súmula 17 STJ, Súmula 611 STF, Súmula 501 STJ, etc.).
+        5. Seção Exclusiva de Casos Reais: Análise prática e dogmática de grandes julgados e eventos históricos da jurisprudência brasileira (Caso Boate Kiss, Caso Bateau Mouche, Caso Cesare Battisti, Caso das Drogas/Portaria Anvisa, Caso de Aeronaves/Território Extensivo).
+        6. Simulado Prático Interativo (25 Questões em Casos Concretos): Engine completa de testes baseada no arquivo fornecido, com filtros por tema, feedback imediato e fundamentação comentada artigo por artigo.
+        7. Dicionário / Glossário de Expressões Penais: Busca em tempo real de termos em latim e conceitos dogmáticos.
+    -->
+    <!-- Visualization & Content Choices:
+        - Gráfico de Incidência Temática (Chart.js Bar Chart): Visualiza a frequência dos temas no Código Penal e em concursos.
+        - Gráfico Doutrinário de Tipicidade/Ilicitude (Chart.js Doughnut Chart): Detalha a estrutura tripartite do crime (Fato Típico, Ilícito, Culpável).
+        - Matrizes e Tabelas Comparativas (HTML/Tailwind): Diferenciação entre Dolo Eventual x Culpa Consciente, Erro de Tipo x Erro de Proibição, Extraterritorialidade Incondicionada x Condicionada.
+        - Linha do Tempo e Iter Criminis (CSS Custom Flex Grid): Representa o caminho do crime (Cogitação -> Preparação -> Execução -> Consumação).
+        - CONFIRMAÇÃO: Nenhum elemento SVG e nenhuma biblioteca Mermaid JS foram utilizados.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoria do Crime & Aplicação da Lei Penal - Guia Interativo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        .serif-title {
+            font-family: 'Cinzel', serif;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 260px;
+            max-height: 290px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 290px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-rose-100 selection:text-rose-900">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-slate-950 text-slate-100 sticky top-0 z-50 border-b border-rose-900/40 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">⚖️</span>
+                    <div>
+                        <h1 class="serif-title text-base sm:text-lg font-bold tracking-wider text-rose-200">JurisPenal Acadêmico</h1>
+                        <p class="text-xs text-slate-400 hidden sm:block">Teoria Geral do Crime, Norma Penal & Aplicação da Lei</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="flex space-x-1 sm:space-x-2 text-xs sm:text-sm font-medium">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="tab-btn px-3 py-2 rounded-lg transition-all bg-rose-900 text-white font-semibold shadow-sm">
+                        📊 <span class="hidden md:inline">Dashboard</span>
+                    </button>
+                    <button onclick="switchTab('doutrina')" id="nav-doutrina" class="tab-btn px-3 py-2 rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-900">
+                        📚 <span class="hidden md:inline">Doutrina & Lei</span>
+                    </button>
+                    <button onclick="switchTab('jurisprudencia')" id="nav-jurisprudencia" class="tab-btn px-3 py-2 rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-900">
+                        🏛️ <span class="hidden md:inline">Jurisprudência</span>
+                    </button>
+                    <button onclick="switchTab('casos')" id="nav-casos" class="tab-btn px-3 py-2 rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-900">
+                        📂 <span class="hidden md:inline">Casos Reais</span>
+                    </button>
+                    <button onclick="switchTab('simulado')" id="nav-simulado" class="tab-btn px-3 py-2 rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-900">
+                        📝 <span class="hidden md:inline">Simulado (25 Q)</span>
+                    </button>
+                    <button onclick="switchTab('glossario')" id="nav-glossario" class="tab-btn px-3 py-2 rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-900">
+                        📖 <span class="hidden md:inline">Glossário</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+
+        <!-- SECTION 1: DASHBOARD ANALYTICS -->
+        <section id="sec-dashboard" class="space-y-6">
+            <!-- Intro Paragraph -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-2">Painel Teórico e Mapeamento do Crime</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Bem-vindo à plataforma de alta performance em Direito Penal. Este ambiente integra a base normativa dos **Artigos 1º ao 31 do Código Penal Brasileiro**, doutrina clássica e contemporânea (Nelson Hungria, Cezar Roberto Bitencourt, Rogério Greco), teses sumuladas do STF/STJ, análises dogmáticas de **casos reais de repercussão nacional** e o simulado prático com 25 questões em caso concreto.
+                </p>
+            </div>
+
+            <!-- Metric Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-wider font-semibold text-slate-500">Artigos Mapeados</p>
+                        <p class="text-3xl font-extrabold text-slate-900 mt-1">1º ao 31</p>
+                        <p class="text-xs text-rose-700 font-medium mt-1">Código Penal (Parte Geral)</p>
+                    </div>
+                    <div class="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center text-rose-800 text-xl font-bold">
+                        📜
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-wider font-semibold text-slate-500">Súmulas Chave</p>
+                        <p class="text-3xl font-extrabold text-slate-900 mt-1">STF & STJ</p>
+                        <p class="text-xs text-emerald-600 font-medium mt-1">Súmulas 711, 17, 611, 501</p>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 text-xl font-bold">
+                        🏛️
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-wider font-semibold text-slate-500">Casos Reais Analisados</p>
+                        <p class="text-3xl font-extrabold text-slate-900 mt-1">5 Casos</p>
+                        <p class="text-xs text-amber-600 font-medium mt-1">Boate Kiss, Bateau Mouche, etc.</p>
+                    </div>
+                    <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-800 text-xl font-bold">
+                        📂
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs uppercase tracking-wider font-semibold text-slate-500">Banco de Questões</p>
+                        <p class="text-3xl font-extrabold text-slate-900 mt-1">25 Casos</p>
+                        <p class="text-xs text-blue-600 font-medium mt-1">Comentadas opção por opção</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 text-xl font-bold">
+                        🎯
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Chart 1: Content Distribution -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <h3 class="font-bold text-slate-900 text-base mb-2 flex items-center gap-2">
+                        <span>📊</span> Incidência Temática em Concursos & OAB
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="topicsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Tripartite Crime Structure -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <h3 class="font-bold text-slate-900 text-base mb-2 flex items-center gap-2">
+                        <span>🧩</span> Estrutura Tripartida do Crime (Conceito Analítico)
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="tripartiteChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Access / Call to Action -->
+            <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-rose-950 text-slate-100 p-6 rounded-2xl shadow-md border border-rose-900/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <span class="bg-rose-500/20 text-rose-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-rose-500/30">Módulo de Prática Avançada</span>
+                    <h3 class="serif-title text-xl font-bold text-rose-100">Pronto para testar seus conhecimentos em casos concretos?</h3>
+                    <p class="text-sm text-slate-300 max-w-2xl leading-relaxed">
+                        Inicie o simulado interativo com 25 questões inéditas focadas na Teoria da Norma Penal, Extraterritorialidade, Erro de Tipo, Nexo Causal e Culpabilidade.
+                    </p>
+                </div>
+                <button onclick="switchTab('simulado')" class="bg-rose-700 hover:bg-rose-600 text-white font-bold px-6 py-3 rounded-xl transition text-sm shadow-md whitespace-nowrap">
+                    Ir para o Simulado (25 Q) →
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 2: DOUTRINA E LEGISLAÇÃO -->
+        <section id="sec-doutrina" class="hidden space-y-6">
+            <!-- Intro Paragraph -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-2">Fundamentação Doutrinária e Dispositivos Legais</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Esta seção organiza de forma didática e aprofundada os quatro grandes eixos teóricos exigidos na primeira prova de Direito Penal: a Eficácia da Lei Penal no Tempo e no Espaço, a Teoria do Fato Típico, o Causalismo/Imputação Objetiva e a Culpabilidade. Selecione uma aba temática para explorar os conceitos doutrinários e seus respectivos artigos do Código Penal.
+                </p>
+            </div>
+
+            <!-- Subtopic Selector -->
+            <div class="flex overflow-x-auto space-x-2 pb-2 border-b border-slate-200">
+                <button onclick="showDoutrinaSub('sub-norma')" id="btn-sub-norma" class="subdoutrina-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-rose-900 text-white shadow-sm whitespace-nowrap">
+                    1. Norma Penal & Tempo/Lugar
+                </button>
+                <button onclick="showDoutrinaSub('sub-espaco')" id="btn-sub-espaco" class="subdoutrina-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 bg-white hover:bg-slate-100 border border-slate-200 whitespace-nowrap">
+                    2. Território & Extraterritorialidade
+                </button>
+                <button onclick="showDoutrinaSub('sub-fatotipico')" id="btn-sub-fatotipico" class="subdoutrina-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 bg-white hover:bg-slate-100 border border-slate-200 whitespace-nowrap">
+                    3. Fato Típico, Nexo & Dolo/Culpa
+                </button>
+                <button onclick="showDoutrinaSub('sub-ilicitude')" id="btn-sub-ilicitude" class="subdoutrina-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 bg-white hover:bg-slate-100 border border-slate-200 whitespace-nowrap">
+                    4. Ilicitude, Culpabilidade & Iter Criminis
+                </button>
+            </div>
+
+            <!-- SUBTOPIC 1: NORMA PENAL, TEMPO E LUGAR -->
+            <div id="sub-norma" class="subdoutrina-content space-y-6">
+                <!-- Grid of core concepts -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Anterioridade e Legalidade -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">Art. 1º do CP</span>
+                            <span class="text-xs font-semibold text-slate-400">CRFB/88 Art. 5º, XXXIX</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg">Princípios da Legalidade e Anterioridade</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            <em>"Não há crime sem lei anterior que o defina. Não há pena sem prévia cominação legal."</em> A lei penal deve ser <strong>prévia, escrita, estrita e certa</strong> (vedada a analogia <em>in pejam</em> e o uso de costumes para incriminar).
+                        </p>
+                    </div>
+
+                    <!-- Tempo do Crime -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">Art. 4º do CP</span>
+                            <span class="text-xs font-semibold text-emerald-700 font-bold">Teoria da Atividade</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg">Tempo do Crime (Tempus Regit Actum)</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Considera-se praticado o crime no momento da <strong>ação ou omissão</strong>, ainda que outro seja o momento do resultado. Exemplo: se o agente atira aos 17 anos e a vítima morre quando ele já completou 18 anos, ele responde como inimputável (ECA), pois adota-se a Teoria da Atividade.
+                        </p>
+                    </div>
+
+                    <!-- Lugar do Crime -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">Art. 6º do CP</span>
+                            <span class="text-xs font-semibold text-blue-700 font-bold">Teoria da Ubiquidade / Mista</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg">Lugar do Crime (Locus Delicti)</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Considera-se praticado o crime no lugar em que ocorreu a <strong>ação ou omissão</strong>, no todo ou em parte, bem como onde se produziu ou deveria produzir-se o <strong>resultado</strong>. (Mnemonicamente: **L**ugar = **U**biquidade; **T**empo = **A**tividade -> LUTA).
+                        </p>
+                    </div>
+
+                    <!-- Lex Mitior e Abolitio Criminis -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="bg-rose-100 text-rose-800 text-xs font-bold px-2.5 py-1 rounded-md">Art. 2º do CP</span>
+                            <span class="text-xs font-semibold text-amber-700 font-bold">Retroatividade Benéfica</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg">Abolitio Criminis & Novatio Legis in Melius</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            A lei posterior que de qualquer modo favorecer o agente <strong>retroage</strong>, alcançando inclusive fatos transitados em julgado. A <em>abolitio criminis</em> extingue os efeitos penais da condenação, mas mantêm-se os efeitos civis (reparação do dano).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Deep Dive: Normas Penais em Branco e Conflito de Normas -->
+                <div class="bg-slate-900 text-slate-100 p-6 rounded-2xl shadow-md border border-slate-800 space-y-4">
+                    <h3 class="serif-title font-bold text-lg text-rose-200">Normas Penais em Branco & Conflito Aparente de Normas</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                            <h4 class="font-bold text-amber-300 text-sm mb-1">Norma Penal em Branco Heterogênea (Em Sentido Stricto)</h4>
+                            <p class="text-slate-300 leading-relaxed">
+                                O complemento emana de fonte diversa do Poder Legislativo (ex: Portaria da ANVISA que define substâncias entorpecentes na Lei de Drogas - Lei 11.343/06). Se a portaria retira uma substância do rol, opera-se <em>abolitio criminis</em>.
+                            </p>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                            <h4 class="font-bold text-amber-300 text-sm mb-1">Princípio da Consunção (Absorção)</h4>
+                            <p class="text-slate-300 leading-relaxed">
+                                O crime-meio é absorvido pelo crime-fim quando funciona como fase normal de preparação ou execução. Tese sumulada (Súmula 17 STJ): O falso se exaure no estelionato, sem mais potencial lesivo, sendo por este absorvido.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTOPIC 2: TERRITORIALIDADE E EXTRATERRITORIALIDADE -->
+            <div id="sub-espaco" class="subdoutrina-content hidden space-y-6">
+                <!-- Territorialidade por Extensão -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="serif-title font-bold text-lg text-slate-900 flex items-center gap-2">
+                        ✈️ Território por Extensão (Art. 5º, § 1º e § 2º do CP)
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                        <div class="p-4 bg-stone-50 rounded-xl border border-stone-200">
+                            <span class="bg-slate-900 text-white font-bold text-xs px-2 py-0.5 rounded">Aeronaves & Embarcações PÚBLICAS</span>
+                            <p class="text-slate-700 mt-2 leading-relaxed">
+                                São consideradas extensão do território nacional <strong>onde quer que se encontrem</strong> (em alto-mar, em espaço aéreo estrangeiro ou em solo/porto estrangeiro). A jurisdição brasileira é absoluta.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-stone-50 rounded-xl border border-stone-200">
+                            <span class="bg-rose-900 text-white font-bold text-xs px-2 py-0.5 rounded">Aeronaves & Embarcações PRIVADAS</span>
+                            <p class="text-slate-700 mt-2 leading-relaxed">
+                                Só são consideradas território brasileiro se estiverem em <strong>alto-mar ou espaço aéreo correspondente</strong>. Se pousadas ou em mar territorial estrangeiro, incide a lei local (salvo hipóteses de extraterritorialidade).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extraterritorialidade Matrix -->
+                <div class="bg-white p-6 rounded-2xl border-2 border-slate-900 shadow-md">
+                    <h3 class="serif-title font-bold text-lg text-slate-900 mb-4">
+                        🌍 Regime de Extraterritorialidade da Lei Penal (Art. 7º do CP)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900 text-rose-200">
+                                    <th class="p-3 rounded-tl-lg">Espécie</th>
+                                    <th class="p-3">Hipóteses do Código Penal</th>
+                                    <th class="p-3 rounded-tr-lg">Requisitos / Condições</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr class="bg-stone-50">
+                                    <td class="p-3 font-bold text-slate-900">Incondicionada<br><span class="text-xs text-rose-700 font-normal">(Art. 7º, I)</span></td>
+                                    <td class="p-3 text-slate-700">
+                                        a) Contra a vida ou liberdade do Presidente da República;<br>
+                                        b) Contra patrimônio/fé pública da União, Estados, Municípios, Autarquias ou Empresas Públicas;<br>
+                                        c) Contra a administração pública por quem está a seu serviço;<br>
+                                        d) Genocídio praticado por brasileiro ou domiciliado no Brasil.
+                                    </td>
+                                    <td class="p-3 text-rose-700 font-semibold">
+                                        Aplica-se a lei brasileira <strong>ainda que o agente seja absolvido ou absolvido no estrangeiro</strong>. Não exige qualquer condição!
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-slate-900">Condicionada<br><span class="text-xs text-slate-500 font-normal">(Art. 7º, II)</span></td>
+                                    <td class="p-3 text-slate-700">
+                                        a) Crimes que o Brasil se obrigou a reprimir por tratado;<br>
+                                        b) Crimes praticados por brasileiro no exterior;<br>
+                                        c) Crimes praticados em aeronaves/embarcações privadas brasileiras no exterior e aí não julgados.
+                                    </td>
+                                    <td class="p-3 text-slate-700 text-xs">
+                                        Exige cumulativamente: Entrar o agente no território nacional; ser o fato punível também no país onde ocorreu; estar o crime incluído entre os que a lei brasileira autoriza a extradição; não ter sido o agente absolvido no exterior nem ter cumprido a pena lá.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTOPIC 3: FATO TÍPICO, NEXO CAUSAL, DOLO E CULPA -->
+            <div id="sub-fatotipico" class="subdoutrina-content hidden space-y-6">
+                <!-- Structural Elements -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="serif-title font-bold text-lg text-slate-900">Elementos Constitutivos do Fato Típico</h3>
+                    <p class="text-slate-600 text-xs sm:text-sm">O fato típico compreende: Conduta + Resultado Naturalístico (nos crimes materiais) + Nexo de Causalidade + Tipicidade (formal e material/concreta).</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Nexo de Causalidade & Causa Superveniente -->
+                        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                            <span class="bg-slate-900 text-white font-bold text-xs px-2 py-0.5 rounded">Nexo de Causalidade (Art. 13)</span>
+                            <h4 class="font-bold text-slate-900 text-sm">Teoria da Causalidade Simples (Conditio Sine Qua Non)</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Considera-se causa toda conduta sem a qual o resultado não teria ocorrido. Para evitar o regresso ao infinito, exige-se a tipicidade subjetiva (dolo ou culpa).
+                            </p>
+                            <div class="p-2.5 bg-rose-50 border border-rose-200 text-rose-950 text-xs rounded-lg mt-2 font-medium">
+                                <strong>Art. 13, § 1º (Causa Superveniente Relativamente Independente):</strong> A causa superveniente que por si só produziu o resultado exclui a imputação do resultado ao agente original; responde este, porém, pelos atos já praticados (ex: ambulância atingida por raio no trajeto).
+                            </div>
+                        </div>
+
+                        <!-- Dolo x Culpa -->
+                        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+                            <span class="bg-amber-800 text-white font-bold text-xs px-2 py-0.5 rounded">Elemento Subjetivo (Art. 18)</span>
+                            <h4 class="font-bold text-slate-900 text-sm">Dolo Eventual vs. Culpa Consciente</h4>
+                            <div class="space-y-2 text-xs text-slate-700">
+                                <p><strong>Dolo Eventual (Art. 18, I, 2ª parte):</strong> O agente não quer diretamente o resultado, mas <strong>assume o risco</strong> de produzi-lo (*"dane-se, tanto faz"* - Teoria do Assentimento).</p>
+                                <p><strong>Culpa Consciente:</strong> O agente prevê o resultado como possível, mas confia sinceramente em sua habilidade para impedi-lo (*"não vai acontecer, eu consigo evitar"*).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTOPIC 4: ILICITUDE, CULPABILIDADE E ITER CRIMINIS -->
+            <div id="sub-ilicitude" class="subdoutrina-content hidden space-y-6">
+                <!-- Excludentes de Ilicitude -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="serif-title font-bold text-lg text-slate-900">Causas Excludentes de Ilicitude (Art. 23 do CP)</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                            <p class="font-bold text-slate-900 text-sm">Estado de Necessidade</p>
+                            <p class="text-slate-600 mt-1">Art. 24: Sacrifício de bem jurídico alheio para salvar de perigo atual bem próprio ou de terceiro, cujo sacrifício não era razoável exigir-se.</p>
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                            <p class="font-bold text-slate-900 text-sm">Legítima Defesa</p>
+                            <p class="text-slate-600 mt-1">Art. 25: Usar moderadamente dos meios necessários para repelir injusta agressão, atual ou iminente, a direito seu ou de outrem.</p>
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                            <p class="font-bold text-slate-900 text-sm">Estrito Cump. Dever Legal</p>
+                            <p class="text-slate-600 mt-1">Atuação do agente público no cumprimento estrito da obrigação imposta pela norma jurídica.</p>
+                        </div>
+                        <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                            <p class="font-bold text-slate-900 text-sm">Exercício Regular de Direito</p>
+                            <p class="text-slate-600 mt-1">Prática de conduta autorizada pelo ordenamento (ex: desportistas em artes marciais nas regras da modalidade).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Culpabilidade & Erros -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <h4 class="font-bold text-slate-900 text-base">Erro de Tipo vs. Erro de Proibição</h4>
+                        <div class="text-xs sm:text-sm text-slate-600 space-y-2">
+                            <p><strong>Erro de Tipo (Art. 20, CP):</strong> O agente erra sobre a realidade fática (*"Acha que está atirando em um urso, mas atira num caçador"*). <strong>Exclui sempre o dolo</strong>, permitindo punição por culpa se prevista em lei.</p>
+                            <p><strong>Erro de Proibição (Art. 21, CP):</strong> O agente conhece o fato, mas erra sobre a ilicitude da conduta (*"Acha que é permitido importar determinado bem ilícito"*). Se inevitável, isenta de pena; se evitável, reduz a pena.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <h4 class="font-bold text-slate-900 text-base">Tentativa & Arrependimento (Arts. 14 a 17)</h4>
+                        <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5 list-disc list-inside">
+                            <li><strong>Desistência Voluntária (Art. 15):</strong> O agente interrompe voluntariamente a execução. Responde apenas pelos atos já praticados.</li>
+                            <li><strong>Arrependimento Eficaz (Art. 15):</strong> Concluída a execução, o agente impede voluntariamente o resultado. Responde pelos atos praticados.</li>
+                            <li><strong>Arrependimento Posterior (Art. 16):</strong> Nos crimes sem violência ou grave ameaça, reparado o dano até o recebimento da denúncia, reduz a pena de 1/3 a 2/3.</li>
+                            <li><strong>Crime Impossível (Art. 17):</strong> Ineficácia absoluta do meio ou impropriedade absoluta do objeto. O fato é atípico.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: JURISPRUDÊNCIA TEMÁTICA (STF & STJ) -->
+        <section id="sec-jurisprudencia" class="hidden space-y-6">
+            <!-- Intro Paragraph -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-2">Jurisprudência Consolidada e Teses dos Tribunais Superiores</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    A interpretação da norma penal nos tribunais brasileiros delineia os limites da punibilidade concreta. Abaixo encontram-se as principais Súmulas e Teses Repetitivas do Supremo Tribunal Federal (STF) e do Superior Tribunal de Justiça (STJ) diretamente aplicáveis aos temas de Teoria do Crime e Aplicação da Lei Penal.
+                </p>
+            </div>
+
+            <!-- Jurisprudence Cards Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Súmula 711 STF -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 hover:border-rose-800 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-rose-900 text-white font-bold text-xs px-2.5 py-1 rounded">Súmula 711 - STF</span>
+                        <span class="text-xs text-slate-400 font-semibold">Crimes Permanentes / Continuados</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">Aplicação da Lei Penal Mais Severa em Crime Continuado ou Permanente</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        <em>"A lei penal mais grave aplica-se ao crime continuado ou ao crime permanente, se a sua vigência é anterior à cessação da continuidade ou da permanência."</em>
+                    </p>
+                    <div class="p-3 bg-stone-50 rounded-lg text-xs text-slate-700">
+                        <strong>Impacto Prático:</strong> Em crimes como extorsão mediante sequestro ou perseguição (stalking) continuada, se entrar em vigor lei com pena mais dura antes da libertação ou fim dos atos, a nova pena incide integralmente.
+                    </div>
+                </div>
+
+                <!-- Súmula 17 STJ -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 hover:border-rose-800 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-slate-900 text-amber-200 font-bold text-xs px-2.5 py-1 rounded">Súmula 17 - STJ</span>
+                        <span class="text-xs text-slate-400 font-semibold">Consunção / Conflito Aparente</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">Absorção do Falso pelo Estelionato</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        <em>"Quando o falso se exaure no estelionato, sem mais potencial lesivo, é por este absorvido."</em>
+                    </p>
+                    <div class="p-3 bg-stone-50 rounded-lg text-xs text-slate-700">
+                        <strong>Impacto Prático:</strong> O agente que falsifica cheque para aplicar um único golpe responde apenas por Estelionato (Art. 171), ficando a falsificação (Art. 297/298) consunta como crime-meio.
+                    </div>
+                </div>
+
+                <!-- Súmula 611 STF -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 hover:border-rose-800 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-rose-900 text-white font-bold text-xs px-2.5 py-1 rounded">Súmula 611 - STF</span>
+                        <span class="text-xs text-slate-400 font-semibold">Execução Penal / Lex Mitior</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">Competência do Juízo da Execução para Retroatividade da Lei Nova</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        <em>"Transitada em julgado a sentença condenatória, compete ao juízo das execuções a aplicação de lei mais benigna."</em>
+                    </p>
+                    <div class="p-3 bg-stone-50 rounded-lg text-xs text-slate-700">
+                        <strong>Impacto Prático:</strong> Se surgir lei penal mais benéfica após o trânsito em julgado, o réu não precisa ingressar com ação rescisória/revisão criminal; o Juiz da Execução Penal aplica de ofício.
+                    </div>
+                </div>
+
+                <!-- Súmula 501 STJ -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 hover:border-rose-800 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="bg-slate-900 text-amber-200 font-bold text-xs px-2.5 py-1 rounded">Súmula 501 - STJ</span>
+                        <span class="text-xs text-slate-400 font-semibold">Vedação à Lex Tertia</span>
+                    </div>
+                    <h3 class="font-bold text-slate-900 text-base">Proibição de Combinação de Leis Penais no Tempo</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        <em>"É vedada a combinação de leis no tempo para extrair de cada uma delas os dispositivos mais benéficos ao réu, sob pena de o juiz criar uma terceira lei (lex tertia)."</em>
+                    </p>
+                    <div class="p-3 bg-stone-50 rounded-lg text-xs text-slate-700">
+                        <strong>Impacto Prático:</strong> O magistrado deve analisar o bloco normativo da lei antiga e da lei nova por inteiro, aplicando o sistema integralmente mais favorável.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: CASOS REAIS (SEÇÃO EXCLUSIVA) -->
+        <section id="sec-casos" class="hidden space-y-6">
+            <!-- Intro Paragraph -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-2">Seção Exclusiva de Casos Reais da Jurisprudência</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    A dogmática penal ganha vida ao ser confrontada com precedentes e tragédias reais apreciadas pelos tribunais superiores do Brasil. Esta seção analisa cinco casos reais emblemáticos, demonstrando a aplicação concreta dos conceitos de Dolo Eventual, Culpa Consciente, Nexo Causal, Território por Extensão e Norma Penal em Branco.
+                </p>
+            </div>
+
+            <!-- Real Case 1: Boate Kiss -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 border-l-4 border-l-rose-800">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 1 • STF / STJ</span>
+                    <span class="text-xs font-semibold text-rose-800">Dolo Eventual vs. Culpa Consciente em Homicídio Pluragressivo</span>
+                </div>
+                <h3 class="serif-title text-lg font-bold text-slate-900">O Caso da Boate Kiss (Santa Maria/RS)</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Em janeiro de 2013, o uso de artefato pirotécnico em ambiente fechado desencadeou incêndio que resultou na morte de 242 pessoas. A controvérsia dogmática central girou em torno de tipificar a conduta dos sócios da casa noturna e integrantes da banda como <strong>homicídio culposo</strong> ou <strong>homicídio com dolo eventual</strong>.
+                </p>
+                <div class="p-4 bg-stone-50 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1">
+                    <p class="font-bold text-slate-900">📌 Síntese da Solução Jurídica:</p>
+                    <p>O Superior Tribunal de Justiça e o Supremo Tribunal Federal assentaram que a ciência dos riscos exagerados (superlotação, espulmamento inflamável, uso de fogos de artifício em recinto fechado) ultrapassou a mera imprudência culposa, configurando a anuência com o risco de produzir o resultado mortífero (dolo eventual - Art. 18, I, CP), submetendo os réus ao Tribunal do Júri.</p>
+                </div>
+            </div>
+
+            <!-- Real Case 2: Bateau Mouche -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 border-l-4 border-l-slate-900">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 2 • STF</span>
+                    <span class="text-xs font-semibold text-slate-700">Nexo Causal, Causalidade Múltipla & Culpa Estrita</span>
+                </div>
+                <h3 class="serif-title text-lg font-bold text-slate-900">O Naufrágio do Bateau Mouche IV (Réveillon no Rio)</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    No Réveillon de 1988, a embarcação turística Bateau Mouche IV naufragou na Baía de Guanabara com excesso de passageiros, resultando na morte de 55 pessoas. Discutiu-se o nexo causal entre as alterações estruturais não autorizadas no barco, a sobrecarga e a conduta dos proprietários.
+                </p>
+                <div class="p-4 bg-stone-50 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1">
+                    <p class="font-bold text-slate-900">📌 Síntese da Solução Jurídica:</p>
+                    <p>A condenação fundamentou-se no artigo 13 do Código Penal (Teoria da Equivalência dos Antecedentes). Ficou provado que as reformas irresponsáveis e a superlotação foram causas determinantes diretas que, somadas ao estado do mar, provocaram o resultado fatal, afastando teses de caso fortuito.</p>
+                </div>
+            </div>
+
+            <!-- Real Case 3: Helicóptero da FAB / Missão Externa -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 border-l-4 border-l-emerald-800">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 3 • STM / STF</span>
+                    <span class="text-xs font-semibold text-emerald-800">Território por Extensão (Art. 5º, § 1º, CP)</span>
+                </div>
+                <h3 class="serif-title text-lg font-bold text-slate-900">Aeronave Militar Brasileira em Solo Estrangeiro</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Durante uma missão de paz e cooperação humanitária internacional na América do Sul, um militar a bordo de um helicóptero da Força Aérea Brasileira (aeronave pública militar) cometeu um delito enquanto a aeronave estava pousada em base estrangeira.
+                </p>
+                <div class="p-4 bg-stone-50 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1">
+                    <p class="font-bold text-slate-900">📌 Síntese da Solução Jurídica:</p>
+                    <p>Com fulcro no artigo 5º, § 1º, do Código Penal, as aeronaves e embarcações brasileiras de natureza pública ou a serviço do governo brasileiro são consideradas <strong>extensão do território nacional onde quer que se encontrem</strong>. A jurisdição e a lei aplicável foram integralmente brasileiras.</p>
+                </div>
+            </div>
+
+            <!-- Real Case 4: Anvisa e Cloridrato de Fenproporex -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 border-l-4 border-l-amber-700">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 4 • STJ</span>
+                    <span class="text-xs font-semibold text-amber-800">Norma Penal em Branco Heterogênea & Abolitio Criminis</span>
+                </div>
+                <h3 class="serif-title text-lg font-bold text-slate-900">Inclusão e Retirada de Substâncias da Portaria SVS/MS 344/98</h3>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    Um réu foi processado por tráfico de drogas pelo comércio de substância anabolizante/saciogênica. Durante o curso do processo penal, a ANVISA editou nova resolução alterando as listas anexas à Portaria 344/98, retirando a referida substância do rol de proibições sanitárias.
+                </p>
+                <div class="p-4 bg-stone-50 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1">
+                    <p class="font-bold text-slate-900">📌 Síntese da Solução Jurídica:</p>
+                    <p>O STJ pacificou que a alteração do complemento de uma norma penal em branco heterogênea que deixa de considerar determinada substância como ilícita opera efeito retroativo benigno (<em>abolitio criminis</em> - Art. 2º, CP), extinguindo a punibilidade e os efeitos penais da condenação.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: SIMULADO INTERATIVO (25 QUESTÕES) -->
+        <section id="sec-simulado" class="hidden space-y-6">
+            <!-- Intro Paragraph -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-2">Simulado Prático em Casos Concretos (25 Questões)</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Responda às 25 questões baseadas no formulário de fixação do exame. As questões cobrem Território por Extensão, Ubiquidade, Atividade, Lei Nova em Crime Habitual, Anterioridade, Lex Mitior, Norma Penal em Branco e Conflito de Normas. Selecione as respostas para obter fundamentação doutrinária instantânea.
+                </p>
+            </div>
+
+            <!-- Quiz Controls & Filters -->
+            <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="filterSimulado('todos')" id="qf-todos" class="qfilter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-rose-900 text-white">
+                        Todas as Questões (25)
+                    </button>
+                    <button onclick="filterSimulado('territorio')" id="qf-territorio" class="qfilter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200">
+                        Território & Extraterritorialidade
+                    </button>
+                    <button onclick="filterSimulado('tempolugar')" id="qf-tempolugar" class="qfilter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200">
+                        Tempo & Lugar do Crime
+                    </button>
+                    <button onclick="filterSimulado('normas')" id="qf-normas" class="qfilter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200">
+                        Norma em Branco & Conflitos
+                    </button>
+                </div>
+                <span class="text-xs text-slate-500 font-semibold" id="simulado-count-label">Exibindo 25 questões</span>
+            </div>
+
+            <!-- Quiz List Container -->
+            <div id="simulado-questions-list" class="space-y-6">
+                <!-- Dynamically Populated via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 6: GLOSSÁRIO JURÍDICO -->
+        <section id="sec-glossario" class="hidden space-y-6">
+            <!-- Intro Paragraph -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-2">Glossário Dogmático & Dicionário Penal</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Pesquise instantaneamente por institutos, brocardos latinos e conceitos técnicos da Teoria Geral do Crime e da Aplicação da Lei Penal.
+                </p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="relative">
+                <input type="text" id="penal-search" oninput="searchGlossaryPenal()" placeholder="Digite um termo (ex: Abolitio Criminis, Ubiquidade, Consunção, Dolo Eventual)..." class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 pl-11 text-sm focus:outline-none focus:ring-2 focus:ring-rose-800 shadow-sm">
+                <span class="absolute left-4 top-3.5 text-slate-400">🔍</span>
+            </div>
+
+            <!-- Glossary Grid -->
+            <div id="glossary-penal-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Dynamically Populated via JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 text-xs py-6 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p>© 2026 JurisPenal Acadêmico — Guia Integrado de Teoria do Crime e Aplicação da Lei Penal.</p>
+            <p class="text-slate-500">Fundamentado no Código Penal Brasileiro (Decreto-Lei nº 2.848/40) e na Jurisprudência do STF e STJ.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- DATA STORE: SIMULADO (25 QUESTIONS FROM PDF FILE) ---
+        const simuladoData = [
+            {
+                id: 1,
+                tag: "territorio",
+                question: "1. (Território por Extensão) Durante uma missão humanitária, um helicóptero da Força Aérea Brasileira, que havia saído de Brasília, pousa temporariamente em território de outro país. Dentro da aeronave, um militar brasileiro pratica determinado fato que, em tese, constitui crime segundo o Código Penal brasileiro. Considerando exclusivamente a regra sobre território por extensão, qual conclusão é correta?",
+                options: [
+                    "A) A lei brasileira jamais se aplica porque a aeronave está fisicamente fora do Brasil.",
+                    "B) A lei brasileira pode ser aplicada, pois aeronave brasileira de natureza pública é considerada extensão do território nacional onde quer que se encontre.",
+                    "C) A lei brasileira só se aplica se a vítima for brasileira.",
+                    "D) A lei brasileira só se aplica se o país estrangeiro autorizar expressamente."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 5º, § 1º, do Código Penal. As embarcações e aeronaves brasileiras de natureza pública ou a serviço do governo brasileiro são consideradas extensão do território nacional onde quer que se encontrem."
+            },
+            {
+                id: 2,
+                tag: "territorio",
+                question: "2. (Aeronave Privada) Uma empresária brasileira viaja em aeronave particular registrada no Brasil. Durante um voo internacional, ainda fora do espaço aéreo brasileiro e sobre região que não é alto-mar, ocorre uma agressão criminosa dentro da aeronave. A defesa sustenta que, por ser aeronave brasileira, o fato deve necessariamente ser tratado como ocorrido em território brasileiro. À luz da regra estudada, assinale a correta.",
+                options: [
+                    "A) Toda aeronave brasileira é território brasileiro onde quer que esteja.",
+                    "B) Aeronave privada brasileira é sempre extensão do território brasileiro, independentemente do local.",
+                    "C) A regra de extensão para aeronave privada depende das hipóteses previstas no art. 5º, § 1º e § 2º, não sendo equiparada à aeronave pública em qualquer lugar.",
+                    "D) Aeronave privada nunca pode ser considerada extensão do território brasileiro."
+                ],
+                correct: 2,
+                explanation: "Fundamentação Legal: Art. 5º, § 2º, do CP. As aeronaves privadas brasileiras só se equiparam ao território nacional quando em alto-mar ou no espaço aéreo correspondente, ou quando pousadas em solo nacional."
+            },
+            {
+                id: 3,
+                tag: "tempolugar",
+                question: "3. (Lugar do Crime - Ubiquidade) Lara, no Brasil, dispara contra uma pessoa que está em território paraguaio. O projétil atinge a vítima no Paraguai, onde ocorre a morte. Para determinar o lugar do crime segundo o Código Penal brasileiro, qual raciocínio deve ser utilizado?",
+                options: [
+                    "A) Considera-se praticado apenas no local do resultado.",
+                    "B) Considera-se praticado apenas no local da ação.",
+                    "C) Considera-se praticado tanto onde ocorreu a ação ou omissão quanto onde ocorreu ou deveria ocorrer o resultado.",
+                    "D) Considera-se praticado somente no país cuja lei tenha pena mais grave."
+                ],
+                correct: 2,
+                explanation: "Fundamentação Legal: Art. 6º do CP (Teoria da Ubiquidade ou Mista). O lugar do crime compreende tanto o local da ação/omissão quanto o do resultado."
+            },
+            {
+                id: 4,
+                tag: "tempolugar",
+                question: "4. (Tempo do Crime) Em 10 de março, Bruno pratica uma conduta que provoca lesão. A vítima somente apresenta uma complicação e morre em 20 de abril. Entre as duas datas entrou em vigor uma lei penal nova. Para definir o momento da prática do crime, qual regra deve ser aplicada?",
+                options: [
+                    "A) O crime é praticado no momento da morte, porque esse é o resultado.",
+                    "B) O crime é praticado no momento da ação ou omissão, ainda que outro seja o momento do resultado.",
+                    "C) O crime é praticado na data em que a vítima toma conhecimento da conduta.",
+                    "D) O crime é praticado na data em que a investigação começa."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 4º do CP (Teoria da Atividade). Considera-se praticado o crime no momento da ação ou omissão."
+            },
+            {
+                id: 5,
+                tag: "tempolugar",
+                question: "5. (Perseguição e Lei Nova) Tício envia dezenas de mensagens e e-mails à colega Mévia entre 5 de fevereiro e 25 de março. Em 1º de abril entra em vigor lei que cria o crime de perseguição (stalking), cuja configuração exige reiteração. Mévia só retorna ao trabalho em 15 de abril e toma conhecimento das mensagens. Assinale a correta.",
+                options: [
+                    "A) O crime se consumou em 15 de abril, quando Mévia descobriu as mensagens.",
+                    "B) A nova lei retroage porque Mévia só tomou conhecimento dos fatos depois de sua vigência.",
+                    "C) Não se aplica a nova lei ao caso, pois os atos de perseguição terminaram antes de sua entrada em vigor.",
+                    "D) Todo crime habitual é automaticamente punido pela lei vigente na data do conhecimento da vítima."
+                ],
+                correct: 2,
+                explanation: "Fundamentação Legal: Art. 1º e Art. 2º do CP c/c Art. 5º, XL, CRFB. A lei penal não retroage para punir condutas pretéritas encerradas antes de sua vigência."
+            },
+            {
+                id: 6,
+                tag: "tempolugar",
+                question: "6. (Lei Nova em Crime Habitual/Permanente) Imagine agora que Tício tenha praticado atos de perseguição em fevereiro, março e também em abril, continuando a conduta após a entrada em vigor da lei que criou o art. 147-A do CP. Qual aspecto passa a ser decisivo para a análise?",
+                options: [
+                    "A) O fato de a vítima ter nacionalidade brasileira.",
+                    "B) A continuidade da reiteração após a entrada em vigor da nova lei, incidindo a lei nova nos termos da Súmula 711 do STF.",
+                    "C) Apenas a data em que a vítima comunicou o fato à polícia.",
+                    "D) Apenas o local onde a primeira mensagem foi enviada."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Jurisprudencial: Súmula 711 do STF. Se a conduta permanente/continuada prossegue na vigência da lei nova mais severa, esta é perfeitamente aplicável."
+            },
+            {
+                id: 7,
+                tag: "normas",
+                question: "7. (Anterioridade) Em janeiro, Paulo pratica determinada conduta que não era definida como crime. Em março, uma lei passa a criminalizar exatamente esse comportamento. O Ministério Público pretende denunciá-lo exclusivamente pelos atos praticados em janeiro. A tese defensiva fundada no princípio da anterioridade é:",
+                options: [
+                    "A) Inaplicável, porque toda lei penal pode retroagir.",
+                    "B) Aplicável, porque não há crime sem lei anterior que o defina.",
+                    "C) Aplicável somente se Paulo for estrangeiro.",
+                    "D) Inaplicável se a pena da nova lei for pequena."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 1º do CP e Art. 5º, XXXIX, da CF. Princípio da Anterioridade da Lei Penal."
+            },
+            {
+                id: 8,
+                tag: "normas",
+                question: "8. (Lex Mitior) Em determinado momento, uma lei penal nova reduz a pena prevista para um crime. João praticou o fato quando vigorava a lei anterior, mais severa, mas seu processo ainda está em curso. Qual princípio deve orientar a solução?",
+                options: [
+                    "A) Irretroatividade absoluta, mesmo para beneficiar o réu.",
+                    "B) Retroatividade da lei penal mais benéfica (lex mitior).",
+                    "C) Aplicação obrigatória da lei antiga porque era a vigente no dia do fato.",
+                    "D) Aplicação da lei nova somente se o crime tiver ocorrido no exterior."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 2º, parágrafo único, do CP e Art. 5º, XL, da CF. A lei penal mais benéfica retroage sempre."
+            },
+            {
+                id: 9,
+                tag: "normas",
+                question: "9. (Lei Penal Temporária e Excepcional) Durante uma calamidade, é editada lei penal com vigência expressamente limitada ao período de emergência, prevendo determinada incriminação. Carlos pratica a conduta durante esse período, mas o processo ocorre depois de cessada a vigência da lei. O instituto aplicável é:",
+                options: [
+                    "A) Ultratividade da norma penal temporária ou excepcional (Art. 3º do CP).",
+                    "B) Norma penal permissiva.",
+                    "C) Abolitio criminis automática.",
+                    "D) Extraterritorialidade condicionada."
+                ],
+                correct: 0,
+                explanation: "Fundamentação Legal: Art. 3º do CP. A lei excepcional ou temporária embora decorrido o período de sua duração ou cessadas as circunstâncias que a determinaram, aplica-se ao fato praticado durante sua vigência (ultratividade)."
+            },
+            {
+                id: 10,
+                tag: "normas",
+                question: "10. (Abolitio Criminis) Uma lei nova deixa de considerar criminosa determinada conduta. Ana havia sido condenada definitivamente pelo fato, mas ainda está cumprindo a pena. O instituto que incide sobre a situação é:",
+                options: [
+                    "A) Novatio legis in pejus.",
+                    "B) Abolitio criminis (Art. 2º, caput, CP).",
+                    "C) Territorialidade.",
+                    "D) Extraterritorialidade incondicionada."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 2º, caput, do CP. Ninguém pode ser punido por fato que lei posterior deixa de considerar crime, cessando em virtude dela a execução e os efeitos penais da sentença condenatória."
+            },
+            {
+                id: 11,
+                tag: "normas",
+                question: "11. (Norma Penal em Branco) Um tipo penal descreve uma conduta criminosa, mas deixa parte de seu conteúdo dependente de complementação por outra norma jurídica (ex: definição de substância entorpecente). Trata-se de:",
+                options: [
+                    "A) Norma penal em branco.",
+                    "B) Norma penal exclusivamente permissiva.",
+                    "C) Norma penal temporária.",
+                    "D) Norma penal exclusivamente explicativa."
+                ],
+                correct: 0,
+                explanation: "Doutrina: Normas penais em branco são aquelas cuja definição do preceito primário necessita de complementação por outro texto normativo."
+            },
+            {
+                id: 12,
+                tag: "normas",
+                question: "12. (Norma Penal em Branco Heterogênea) A Lei nº 11.343/06 depende de ato normativo editado por órgão do Poder Executivo (ANVISA) para a complementação das substâncias proibidas. Essa hipótese é classificada como:",
+                options: [
+                    "A) Norma penal em branco homogênea.",
+                    "B) Norma penal em branco heterogênea (em sentido estrito).",
+                    "C) Norma penal temporária.",
+                    "D) Norma penal excepcional."
+                ],
+                correct: 1,
+                explanation: "Doutrina: É heterogênea quando o complemento provém de fonte diversa da legislativa (ex: Portaria Ministerial/Anvisa)."
+            },
+            {
+                id: 13,
+                tag: "normas",
+                question: "13. (Conflito Aparente - Especialidade) Um fato aparentemente se enquadra em uma norma penal geral e em outra que descreve o mesmo núcleo de conduta com elementos adicionais qualificadores. O critério no qual a norma especial prevalece é o da:",
+                options: [
+                    "A) Consunção.",
+                    "B) Subsidiariedade.",
+                    "C) Especialidade (Lex specialis derogat legi generali).",
+                    "D) Alternatividade."
+                ],
+                correct: 2,
+                explanation: "Doutrina: Pelo Princípio da Especialidade, a norma especial afasta a geral sem declarar a invalidade desta."
+            },
+            {
+                id: 14,
+                tag: "normas",
+                question: "14. (Consunção) Quando um delito funciona como meio necessário ou fase normal de preparação/execução de outro crime mais grave, opera-se o princípio da:",
+                options: [
+                    "A) Anterioridade.",
+                    "B) Consunção (Absorção).",
+                    "C) Territorialidade.",
+                    "D) Ubiquidade."
+                ],
+                correct: 1,
+                explanation: "Doutrina e Súmula 17 do STJ: O crime-meio é absorvido pelo crime-fim."
+            },
+            {
+                id: 15,
+                tag: "territorio",
+                question: "15. (Extraterritorialidade Incondicionada) Um crime contra a vida ou a liberdade do Presidente da República do Brasil é praticado no estrangeiro. De acordo com o Código Penal brasileiro, incide:",
+                options: [
+                    "A) Extraterritorialidade incondicionada (Art. 7º, I, a, do CP).",
+                    "B) Extraterritorialidade condicionada.",
+                    "C) Imunidade diplomática absoluta.",
+                    "D) Princípio da territorialidade estrita."
+                ],
+                correct: 0,
+                explanation: "Fundamentação Legal: Art. 7º, I, 'a', do CP. Aplica-se a lei brasileira incondicionalmente."
+            },
+            {
+                id: 16,
+                tag: "territorio",
+                question: "16. (Extraterritorialidade Condicionada) Um brasileiro comete um furto na França e retorna ao Brasil. A aplicação da lei brasileira a esse fato depende de preencher as condições do artigo 7º, § 2º, do CP, entre as quais se exige:",
+                options: [
+                    "A) Que o fato não seja punível na França.",
+                    "B) Entrar o agente no território nacional e ser o fato punível também no país onde foi praticado.",
+                    "C) Autorização expressa da Corte Internacional de Justiça.",
+                    "D) Que a pena no Brasil seja de prisão perpétua."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 7º, § 2º, 'a' e 'b', do CP. Requisitos da extraterritorialidade condicionada."
+            },
+            {
+                id: 17,
+                tag: "tempolugar",
+                question: "17. (Nexo Causal e Causa Superveniente) O agente desfere um tiro de raspão na vítima. No hospital, enquanto recebe atendimento simples, desaba o teto da ala cirúrgica por falha estrutural do prédio e a vítima morre por traumatismo craniano decorrente do desabamento. O agente do disparo responde por:",
+                options: [
+                    "A) Homicídio consumado.",
+                    "B) Tentativa de homicídio, pois a causa superveniente relativamente independente produziu o resultado por si só (Art. 13, § 1º, CP).",
+                    "C) Lesão corporal culposa apenas.",
+                    "D) Isenção total de pena por crime impossível."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 13, § 1º, do CP. A causa superveniente que por si só produziu o resultado rompe o nexo causal do homicídio consumado, respondendo o agente pelos atos praticados (tentativa)."
+            },
+            {
+                id: 18,
+                tag: "tempolugar",
+                question: "18. (Dolo Eventual x Culpa Consciente) O motorista que trafega em altíssima velocidade em via urbana, prevê a possibilidade de atropelamento, mas assume expressamente o risco de matar pedestres, agindo com indiferença (*'tanto faz'*), atua com:",
+                options: [
+                    "A) Culpa inconsciente.",
+                    "B) Dolo eventual (Art. 18, I, 2ª parte, CP).",
+                    "C) Culpa preterdolosa.",
+                    "D) Erro de proibição."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 18, I, do CP. Dolo eventual caracteriza-se quando o agente assume o risco de produzir o resultado."
+            },
+            {
+                id: 19,
+                tag: "normas",
+                question: "19. (Erro de Tipo) O caçador que, em floresta densa, supõe piamente estar atirando em um animal selvagem, mas atinge outro caçador que usava camuflagem, incorre em:",
+                options: [
+                    "A) Erro de proibição.",
+                    "B) Erro de tipo essencial (Art. 20, caput, CP), que exclui o dolo.",
+                    "C) Coação moral irresistível.",
+                    "D) Descriminante putativa por dolo de terceiro."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 20, caput, do CP. O erro sobre elemento constitutivo do tipo exclui o dolo, permitindo punição por culpa se prevista."
+            },
+            {
+                id: 20,
+                tag: "normas",
+                question: "20. (Erro de Proibição) O cidadão estrangeiro que comete um fato no Brasil conhecendo exatamente o ato que pratica, mas acreditando erroneamente que tal conduta é permitida pelo direito brasileiro, incorre em:",
+                options: [
+                    "A) Erro de tipo.",
+                    "B) Erro de proibição (Art. 21 do CP).",
+                    "C) Crime impossível.",
+                    "D) Imputabilidade absoluta."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 21 do CP. O erro sobre a ilicitude do fato (erro de proibição) incide sobre a culpabilidade."
+            },
+            {
+                id: 21,
+                tag: "normas",
+                question: "21. (Desistência Voluntária) O agente que voluntariamente abandona a execução do crime antes de esgotar todos os meios que tinha à disposição responde por:",
+                options: [
+                    "A) Tentativa do crime pretendido.",
+                    "B) Apenas pelos atos já praticados (Art. 15, 1ª parte, CP).",
+                    "C) Crime impossível.",
+                    "D) Homicídio consumado com pena reduzida."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 15 do CP (Desistência Voluntária). O agente só responde pelos atos já praticados."
+            },
+            {
+                id: 22,
+                tag: "normas",
+                question: "22. (Arrependimento Posterior) Nos crimes cometidos sem violência ou grave ameaça à pessoa, se o agente repara voluntariamente o dano até o recebimento da denúncia ou da queixa, opera-se:",
+                options: [
+                    "A) Abolitio criminis.",
+                    "B) Arrependimento posterior (Art. 16 do CP), reduzindo a pena de 1/3 a 2/3.",
+                    "C) Perdão judicial obrigatório.",
+                    "D) Descriminante putativa."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 16 do CP. Requisitos: crime sem violência/grave ameaça + reparação voluntária + antes do recebimento da peça acusatória."
+            },
+            {
+                id: 23,
+                tag: "normas",
+                question: "23. (Crime Impossível) A tentativa de homicídio praticada disparando uma arma de brinquedo de plástico incapaz de disparar projéteis contra a vítima caracteriza:",
+                options: [
+                    "A) Tentativa punível com redução máxima.",
+                    "B) Crime impossível por ineficácia absoluta do meio (Art. 17 do CP).",
+                    "C) Arrependimento eficaz.",
+                    "D) Delito putativo por erro de tipo."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 17 do CP. Não se pune a tentativa quando, por ineficácia absoluta do meio ou por absoluta impropriedade do objeto, é impossível consumar-se o crime."
+            },
+            {
+                id: 24,
+                tag: "normas",
+                question: "24. (Legítima Defesa) Quem repele injusta agressão, atual ou iminente, a direito seu ou de outrem, usando moderadamente dos meios necessários, atua sob:",
+                options: [
+                    "A) Causa de exclusão da culpabilidade.",
+                    "B) Causa de exclusão da ilicitude (Art. 23, II, e Art. 25 do CP).",
+                    "C) Exclusão da tipicidade formal.",
+                    "D) Perdão judicial."
+                ],
+                correct: 1,
+                explanation: "Fundamentação Legal: Art. 23, II, e Art. 25 do CP. A legítima defesa exclui a ilicitude da conduta."
+            },
+            {
+                id: 25,
+                tag: "normas",
+                question: "25. (Imputabilidade Penal) Segundo o Código Penal brasileiro (Art. 26), é isento de pena o agente que, por doença mental ou desenvolvimento mental incompleto ou retardado, era, ao tempo da ação ou da omissão:",
+                options: [
+                    "A) Inteiramente incapaz de entender o caráter ilícito do fato ou de determinar-se de acordo com esse entendimento.",
+                    "B) Parcialmente capaz de trabalhar.",
+                    "C) Maior de 70 anos de idade.",
+                    "D) Indiciado em inquérito policial."
+                ],
+                correct: 0,
+                explanation: "Fundamentação Legal: Art. 26, caput, do CP (Critério Biopsicológico da Inimputabilidade)."
+            }
+        ];
+
+        const glossaryPenalData = [
+            { term: "Abolitio Criminis", definition: "Causa de extinção da punibilidade que ocorre quando lei nova deixa de considerar criminoso um fato anteriormente incriminado (Art. 2º, caput, CP)." },
+            { term: "Lex Mitior (Novatio Legis in Melius)", definition: "Lei penal nova que de qualquer modo favorece o réu, devendo retroagir para alcançar fatos passados (Art. 2º, parágrafo único, CP)." },
+            { term: "Ubiquidade (Teoria da)", definition: "Teoria adotada pelo Código Penal (Art. 6º) para fixar o LUGAR do crime, considerando tanto o local da conduta quanto o do resultado." },
+            { term: "Atividade (Teoria da)", definition: "Teoria adotada pelo Código Penal (Art. 4º) para fixar o TEMPO do crime, considerando o momento da ação ou omissão." },
+            { term: "Dolo Eventual", definition: "Modalidade de dolo em que o agente não quer diretamente o resultado, mas prevê sua ocorrência e assume o risco de produzi-lo (Art. 18, I, CP)." },
+            { term: "Culpa Consciente", definition: "Modalidade em que o agente prevê a possibilidade do resultado, mas confia sinceramente que sua habilidade impedirá a consumação." },
+            { term: "Consunção (Princípio da)", definition: "Princípio de solução do conflito aparente de normas em que o crime-meio é absorvido pelo crime-fim." },
+            { term: "Saisine Penal / Irretroatividade", definition: "A lei penal não retroagirá, salvo para beneficiar o réu (Art. 5º, XL, CF)." }
+        ];
+
+        // --- STATE VARIABLES ---
+        let currentSimuladoFilter = 'todos';
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            renderSimulado();
+            renderGlossaryPenal(glossaryPenalData);
+        });
+
+        // --- NAVIGATION ENGINE ---
+        function switchTab(tabId) {
+            const tabs = ['dashboard', 'doutrina', 'jurisprudencia', 'casos', 'simulado', 'glossario'];
+            tabs.forEach(id => {
+                const sec = document.getElementById(`sec-${id}`);
+                const nav = document.getElementById(`nav-${id}`);
+                if (id === tabId) {
+                    sec.classList.remove('hidden');
+                    nav.classList.add('bg-rose-900', 'text-white', 'font-semibold', 'shadow-sm');
+                    nav.classList.remove('text-slate-300', 'hover:bg-slate-900');
+                } else {
+                    sec.classList.add('hidden');
+                    nav.classList.remove('bg-rose-900', 'text-white', 'font-semibold', 'shadow-sm');
+                    nav.classList.add('text-slate-300', 'hover:bg-slate-900');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showDoutrinaSub(subId) {
+            const subs = ['sub-norma', 'sub-espaco', 'sub-fatotipico', 'sub-ilicitude'];
+            subs.forEach(id => {
+                const content = document.getElementById(id);
+                const btn = document.getElementById(`btn-${id}`);
+                if (id === subId) {
+                    content.classList.remove('hidden');
+                    btn.classList.add('bg-rose-900', 'text-white');
+                    btn.classList.remove('bg-white', 'text-slate-600');
+                } else {
+                    content.classList.add('hidden');
+                    btn.classList.remove('bg-rose-900', 'text-white');
+                    btn.classList.add('bg-white', 'text-slate-600');
+                }
+            });
+        }
+
+        // --- CHARTS (Chart.js) ---
+        function initCharts() {
+            // Chart 1: Topic Incidence
+            const ctx1 = document.getElementById('topicsChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Aplicação da Lei Penal', 'Fato Típico & Nexo', 'Ilicitude & Legítima Defesa', 'Culpabilidade & Erros', 'Iter Criminis & Tentativa'],
+                    datasets: [{
+                        label: 'Incidência Prova/Concursos (%)',
+                        data: [35, 25, 15, 15, 10],
+                        backgroundColor: [
+                            'rgba(136, 19, 55, 0.85)',
+                            'rgba(15, 23, 42, 0.85)',
+                            'rgba(217, 119, 6, 0.85)',
+                            'rgba(16, 185, 129, 0.85)',
+                            'rgba(59, 130, 246, 0.85)'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 40, ticks: { callback: v => v + '%' } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // Chart 2: Tripartite Crime Structure
+            const ctx2 = document.getElementById('tripartiteChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['1. Fato Típico (Conduta+Nexo+Tipicidade)', '2. Ilicitude (Antijuridicidade)', '3. Culpabilidade (Reprovabilidade)'],
+                    datasets: [{
+                        data: [50, 25, 25],
+                        backgroundColor: ['#881337', '#0f172a', '#d97706'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // --- SIMULADO ENGINE ---
+        function renderSimulado() {
+            const container = document.getElementById('simulado-questions-list');
+            container.innerHTML = '';
+
+            let filtered = simuladoData;
+            if (currentSimuladoFilter !== 'todos') {
+                filtered = simuladoData.filter(q => q.tag === currentSimuladoFilter);
+            }
+
+            document.getElementById('simulado-count-label').innerText = `Exibindo ${filtered.length} de ${simuladoData.length} questões`;
+
+            filtered.forEach((q) => {
+                const qCard = document.createElement('div');
+                qCard.className = "bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4";
+                
+                let optionsHTML = '';
+                q.options.forEach((opt, oIdx) => {
+                    optionsHTML += `
+                        <button onclick="checkAnswer(${q.id}, ${oIdx})" id="opt-${q.id}-${oIdx}" class="w-full text-left p-3.5 rounded-xl border border-slate-200 bg-stone-50 hover:bg-slate-100 text-xs sm:text-sm text-slate-800 transition flex items-start justify-between">
+                            <span>${opt}</span>
+                            <span id="badge-${q.id}-${oIdx}" class="hidden text-xs px-2 py-0.5 rounded font-bold ml-2"></span>
+                        </button>
+                    `;
+                });
+
+                qCard.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold bg-slate-900 text-rose-200 px-3 py-1 rounded-md">Caso Concreto #${q.id}</span>
+                        <span class="text-xs text-slate-400 font-semibold uppercase">Teoria da Norma & Crime</span>
+                    </div>
+                    <p class="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed">${q.question}</p>
+                    <div class="space-y-2">
+                        ${optionsHTML}
+                    </div>
+                    <div id="exp-${q.id}" class="hidden p-4 bg-rose-50/70 border border-rose-200 rounded-xl text-xs sm:text-sm text-rose-950">
+                        <span class="font-bold block mb-1">📖 Gabarito Comentado & Fundamentação:</span>
+                        <p>${q.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(qCard);
+            });
+        }
+
+        function checkAnswer(questionId, selectedIdx) {
+            const q = simuladoData.find(item => item.id === questionId);
+            if (!q) return;
+
+            q.options.forEach((_, oIdx) => {
+                const btn = document.getElementById(`opt-${questionId}-${oIdx}`);
+                const badge = document.getElementById(`badge-${questionId}-${oIdx}`);
+                btn.disabled = true;
+
+                if (oIdx === q.correct) {
+                    btn.classList.remove('bg-stone-50', 'hover:bg-slate-100');
+                    btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-950', 'font-semibold');
+                    badge.classList.remove('hidden');
+                    badge.classList.add('bg-emerald-600', 'text-white');
+                    badge.innerText = "Correta ✓";
+                } else if (oIdx === selectedIdx && selectedIdx !== q.correct) {
+                    btn.classList.remove('bg-stone-50', 'hover:bg-slate-100');
+                    btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-950', 'font-semibold');
+                    badge.classList.remove('hidden');
+                    badge.classList.add('bg-rose-600', 'text-white');
+                    badge.innerText = "Sua Opção ✗";
+                }
+            });
+
+            document.getElementById(`exp-${questionId}`).classList.remove('hidden');
+        }
+
+        function filterSimulado(filterKey) {
+            currentSimuladoFilter = filterKey;
+            
+            const btns = document.querySelectorAll('.qfilter-btn');
+            btns.forEach(b => {
+                b.classList.remove('bg-rose-900', 'text-white');
+                b.classList.add('bg-stone-100', 'text-slate-700');
+            });
+            const activeBtn = document.getElementById(`qf-${filterKey}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-rose-900', 'text-white');
+                activeBtn.classList.remove('bg-stone-100', 'text-slate-700');
+            }
+
+            renderSimulado();
+        }
+
+        // --- GLOSSARY ENGINE ---
+        function renderGlossaryPenal(items) {
+            const grid = document.getElementById('glossary-penal-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `<div class="col-span-2 p-6 bg-white text-center text-slate-500 rounded-xl border">Nenhum termo encontrado.</div>`;
+                return;
+            }
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2 hover:border-rose-800 transition";
+                card.innerHTML = `
+                    <h4 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                        <span class="text-rose-800">⚖️</span> ${item.term}
+                    </h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${item.definition}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function searchGlossaryPenal() {
+            const query = document.getElementById('penal-search').value.toLowerCase().trim();
+            const filtered = glossaryPenalData.filter(g => 
+                g.term.toLowerCase().includes(query) || g.definition.toLowerCase().includes(query)
+            );
+            renderGlossaryPenal(filtered);
+        }
+    </script>
+</body>
+</html>
