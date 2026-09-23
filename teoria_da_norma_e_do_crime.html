@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teoria da Norma e do Crime</title>
+<meta name="description" content="Material de estudo: Teoria da Norma Penal (arts. 1º a 12 do CP) e Teoria do Crime (arts. 13 a 31 do CP), com conceitos, exemplos, jurisprudência e casos reais.">
+<style>
+:root{
+  --bg:#f7f6f3; --paper:#ffffff; --ink:#1c1b19; --muted:#5b5853; --line:#e3e0da;
+  --accent:#8a1c2b; --accent-soft:#f6e9eb; --gold:#8a6a1c; --gold-soft:#f7f0de;
+  --ok:#1f6b45; --ok-soft:#e6f3ec; --warn:#8a5a00; --warn-soft:#fbf1dc; --info:#1d4f7a; --info-soft:#e7f0f8;
+  --code:#f1efea;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141414; --paper:#1c1c1c; --ink:#ecebe8; --muted:#a8a49d; --line:#33312e;
+    --accent:#e0808c; --accent-soft:#2c1b1e; --gold:#d9b765; --gold-soft:#2a2418;
+    --ok:#7fcfa4; --ok-soft:#16261e; --warn:#e7b85c; --warn-soft:#2a2214; --info:#8dbde6; --info-soft:#15212c;
+    --code:#262523;
+  }
+}
+:root[data-theme="dark"]{
+    --bg:#141414; --paper:#1c1c1c; --ink:#ecebe8; --muted:#a8a49d; --line:#33312e;
+    --accent:#e0808c; --accent-soft:#2c1b1e; --gold:#d9b765; --gold-soft:#2a2418;
+    --ok:#7fcfa4; --ok-soft:#16261e; --warn:#e7b85c; --warn-soft:#2a2214; --info:#8dbde6; --info-soft:#15212c;
+    --code:#262523;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Georgia,"Times New Roman",serif}
+a{color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:260px 1fr;gap:32px}
+header.top{background:var(--paper);border-bottom:1px solid var(--line)}
+header.top .in{max-width:1180px;margin:0 auto;padding:28px 16px 22px}
+header.top h1{font-size:30px;line-height:1.2;margin:0 0 6px}
+header.top p{margin:4px 0;color:var(--muted);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:14px}
+.badge{display:inline-block;font:600 12px/1 system-ui,sans-serif;padding:5px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);margin-right:6px}
+nav.toc{position:sticky;top:0;align-self:start;max-height:100vh;overflow:auto;padding:24px 0;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+nav.toc b{display:block;margin:14px 0 6px;color:var(--muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+nav.toc a{display:block;padding:3px 0;color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--accent)}
+main{padding:24px 0 80px;min-width:0}
+section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin:0 0 22px}
+h2{font-size:24px;margin:0 0 12px;color:var(--accent);line-height:1.25}
+h3{font-size:19px;margin:22px 0 8px}
+h4{font-size:16px;margin:16px 0 6px;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.part{font:700 12px/1 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:30px 0 10px}
+p{margin:8px 0}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin:3px 0}
+.law{border-left:4px solid var(--gold);background:var(--gold-soft);padding:10px 14px;margin:12px 0;border-radius:0 8px 8px 0;font-size:15px}
+.law .ref{display:block;font:600 12px/1.3 system-ui,sans-serif;color:var(--gold);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.juris,.caso,.alerta,.dica{border-radius:10px;padding:12px 16px;margin:14px 0;font-size:15px}
+.juris .t,.caso .t,.alerta .t,.dica .t{font:700 13px/1.3 system-ui,sans-serif;display:block;margin-bottom:6px;letter-spacing:.01em}
+.juris ul,.caso ul,.dica ol{margin:6px 0 0}
+.juris{background:var(--info-soft);border:1px solid color-mix(in srgb,var(--info) 25%,transparent)}
+.juris .t{color:var(--info)}
+.caso{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 25%,transparent)}
+.caso .t{color:var(--accent)}
+.alerta{background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent)}
+.alerta .t{color:var(--warn)}
+.dica{background:var(--ok-soft);border:1px solid color-mix(in srgb,var(--ok) 25%,transparent)}
+.dica .t{color:var(--ok)}
+.tw{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--code)}
+.src{font:12.5px/1.4 system-ui,sans-serif;color:var(--muted);margin-top:6px}
+.src a{color:var(--muted)}
+.ref-list li{font-size:14.5px;margin:5px 0}
+.small{font-size:14px;color:var(--muted)}
+footer{max-width:1180px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font:13px/1.5 system-ui,sans-serif}
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;gap:0}
+  nav.toc{position:static;max-height:none;border-bottom:1px solid var(--line);padding:12px 0}
+  section{padding:18px 16px}
+  header.top h1{font-size:24px}
+}
+@media print{
+  nav.toc{display:none}.wrap{display:block}section{break-inside:avoid-page;border:none;padding:8px 0}
+  body{background:#fff;color:#000}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <span class="badge">Direito Penal I</span><span class="badge">Revisado em 23/09/2026</span>
+  <h1>Teoria da Norma Penal e Teoria do Crime</h1>
+  <p>Arts. 1º a 31 do Código Penal (Decreto-Lei 2.848/1940): conceitos, explicações, exemplos, jurisprudência dos tribunais superiores e casos reais.</p>
+  <p>Organizado a partir das anotações das aulas de 13/08 a 22/09/2026, com as correções necessárias indicadas no texto e reunidas no <a href="#correcoes">Quadro de correções</a>.</p>
+</div></header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Sumário">
+  <b>Fundamentos</b>
+  <a href="#legislacao">1. Legislação penal básica</a>
+  <a href="#conceito">2. Conceito, infrações e sanções</a>
+  <a href="#caracteristicas">3. Características e política criminal</a>
+  <a href="#relacoes">4. Relações com outros ramos</a>
+  <b>Teoria da Norma (arts. 1º–12)</b>
+  <a href="#norma">5. Norma penal e classificação</a>
+  <a href="#fontes">6. Fontes, interpretação e analogia</a>
+  <a href="#branco">7. Norma penal em branco</a>
+  <a href="#conflito">8. Conflito aparente de normas</a>
+  <a href="#tempo">9. Lei penal no tempo</a>
+  <a href="#espaco">10. Lei penal no espaço</a>
+  <a href="#pessoas">11. Imunidades</a>
+  <a href="#inafiancaveis">12. Inafiançáveis e imprescritíveis</a>
+  <a href="#extradicao">13. Extradição</a>
+  <a href="#finais">14. Arts. 8º a 12 e a sentença estrangeira</a>
+  <b>Teoria do Crime (arts. 13–31)</b>
+  <a href="#crime">15. Conceito de crime</a>
+  <a href="#fatotipico">16. Fato típico, dolo e culpa</a>
+  <a href="#omissao">17. Ação e omissão</a>
+  <a href="#iter">18. Iter criminis (arts. 14–17 e 19)</a>
+  <a href="#ilicitude">19. Ilicitude</a>
+  <a href="#culpabilidade">20. Culpabilidade</a>
+  <a href="#erro">21. Teoria do erro</a>
+  <a href="#concurso">22. Concurso de pessoas</a>
+  <b>Estudo</b>
+  <a href="#correcoes">23. Quadro de correções</a>
+  <a href="#revisao">24. Revisão para prova</a>
+  <a href="#referencias">Referências</a>
+</nav>
+
+<main>
+
+<div class="part">Parte I · Fundamentos</div>
+
+<section id="legislacao">
+<h2>1. Legislação penal básica</h2>
+<div class="tw"><table>
+<tr><th>Diploma</th><th>Norma</th><th>Observação</th></tr>
+<tr><td>Código Penal</td><td>Decreto-Lei 2.848/1940</td><td>Editado durante o Estado Novo, com o Congresso fechado, por decreto-lei com força de lei. A <strong>Parte Geral</strong> (arts. 1º a 120) foi inteiramente reformada pela <strong>Lei 7.209/1984</strong>. A <strong>Parte Especial</strong> vai do art. 121 ao art. 361.</td></tr>
+<tr><td>Código de Processo Penal</td><td>Decreto-Lei <strong>3.689</strong>/1941</td><td>(nas anotações constou "3.680", número incorreto)</td></tr>
+<tr><td>Lei das Contravenções Penais</td><td>Decreto-Lei 3.688/1941</td><td>Principal, mas não única, fonte de contravenções (ver item 2).</td></tr>
+<tr><td>Lei de Introdução ao CP e à LCP</td><td>Decreto-Lei 3.914/1941</td><td>Art. 1º distingue crime de contravenção pela pena cominada.</td></tr>
+<tr><td>Código Penal Militar / CPPM</td><td>Decretos-Leis 1.001 e 1.002/1969</td><td>—</td></tr>
+<tr><td>Lei de Execução Penal</td><td>Lei 7.210/1984</td><td>—</td></tr>
+<tr><td>Estatuto da Criança e do Adolescente</td><td>Lei <strong>8.069</strong>/1990</td><td>(nas anotações constou "8.039"). Rege o ato infracional e as medidas socioeducativas.</td></tr>
+<tr><td>Lei de Migração</td><td>Lei 13.445/2017</td><td>Extradição (arts. 81 e seguintes) e transferência de execução da pena (arts. 100 a 102).</td></tr>
+</table></div>
+<p><strong>Divisão da Parte Geral</strong> adotada no curso: Teoria da Norma (arts. 1º a 12), Teoria do Crime (arts. 13 a 31) e Teoria da Pena (arts. 32 a 120).</p>
+</section>
+
+<section id="conceito">
+<h2>2. Conceito de Direito Penal, infrações e sanções</h2>
+<h3>2.1 Conceitos</h3>
+<p><strong>Formal:</strong> ramo do Direito Público interno que define as condutas delitivas (infrações penais e, por extensão, atos infracionais) e comina as consequências jurídicas correspondentes (penas, medidas de segurança e, no caso do ECA, medidas socioeducativas).</p>
+<p><strong>Material:</strong> ramo do Direito que tutela os bens jurídicos mais importantes para a vida em sociedade, cuja agressão pode desestabilizar o convívio social.</p>
+
+<h3>2.2 Infração penal: crime e contravenção</h3>
+<p>O Brasil adota o sistema <strong>dualista (ou binário)</strong>: infração penal é gênero, do qual são espécies o <strong>crime (ou delito)</strong> e a <strong>contravenção penal</strong>. O critério distintivo é legal e está na pena cominada:</p>
+<div class="law"><span class="ref">Decreto-Lei 3.914/1941, art. 1º</span>Considera-se crime a infração penal a que a lei comina pena de reclusão ou de detenção, quer isoladamente, quer alternativa ou cumulativamente com a pena de multa; contravenção, a infração penal a que a lei comina, isoladamente, pena de prisão simples ou de multa, ou ambas, alternativa ou cumulativamente.</div>
+<div class="alerta"><span class="t">Atenção: nem toda contravenção está no DL 3.688/1941</span>A LCP concentra a maior parte delas, mas há contravenções em outras leis. O exemplo clássico é o <strong>jogo do bicho</strong>, previsto no art. 58 do Decreto-Lei 6.259/1944.</div>
+<p><strong>Imputabilidade:</strong> só pratica infração penal quem é imputável. A capacidade penal depende de dois fatores: <strong>idade</strong> (18 anos, art. 27 do CP e art. 228 da CF) e <strong>sanidade mental</strong> (art. 26 do CP). O menor de 18 anos pratica <strong>ato infracional</strong> (art. 103 do ECA) e está sujeito às medidas socioeducativas do art. 112 do ECA.</p>
+<div class="juris"><span class="t">Jurisprudência · conceito formal de crime</span>No <strong>RE 635.659 (Tema 506 da repercussão geral, junho de 2024)</strong>, o STF entendeu que o porte de <em>cannabis</em> para consumo pessoal não configura infração penal, mantida a ilicitude extrapenal, com sanções de natureza administrativa. O caso é útil para discutir a distinção legal entre crime, contravenção e ilícito administrativo.</div>
+
+<h3>2.3 Sanções penais</h3>
+<ul>
+<li><strong>Penas</strong> (CF, art. 5º, XLVI): privativas de liberdade (CP, arts. 33 a 42), restritivas de direitos (arts. 43 a 48) e multa (arts. 49 e seguintes). A Constituição também menciona perda de bens e prestação social alternativa.</li>
+<li><strong>Penas vedadas</strong> (CF, art. 5º, XLVII): de morte (salvo em caso de guerra declarada), de caráter perpétuo, de trabalhos forçados, de banimento e cruéis.</li>
+<li><strong>Medidas de segurança</strong> (CP, arts. 96 a 99): internação em hospital de custódia e tratamento psiquiátrico ou tratamento ambulatorial. Destinam-se ao inimputável por doença mental (art. 26, <em>caput</em>) e podem substituir a pena do semi-imputável que necessite de tratamento (art. 98).</li>
+</ul>
+</section>
+
+<section id="caracteristicas">
+<h2>3. Características do Direito Penal e política criminal</h2>
+<ul>
+<li><strong>Autônomo / constitutivo:</strong> não depende de outro ramo para existir e pode criar ilícitos próprios. Parte da doutrina prefere dizer que é predominantemente <strong>sancionador</strong>, porque reforça com pena a proteção de bens já tutelados por outros ramos. As duas visões convivem nos manuais.</li>
+<li><strong>Subsidiário (<em>ultima ratio</em>):</strong> só deve intervir quando os demais ramos do Direito forem insuficientes.</li>
+<li><strong>Fragmentário:</strong> protege apenas fragmentos da ordem jurídica, isto é, os ataques mais graves aos bens jurídicos mais relevantes.</li>
+</ul>
+<h3>3.1 Direito penal mínimo × movimento de "lei e ordem"</h3>
+<p><strong>Direito penal mínimo</strong> (associado ao garantismo) defende a intervenção penal mínima, restrita às condutas mais lesivas e cercada de garantias. No polo oposto, o <strong>movimento de lei e ordem</strong> aposta no endurecimento penal como resposta aos problemas sociais, o que leva à expansão legislativa e ao chamado <strong>direito penal simbólico</strong>: leis editadas sob forte comoção pública, muitas vezes batizadas com o nome da vítima.</p>
+<div class="caso"><span class="t">Casos reais · legislação produzida sob comoção</span>
+<ul>
+<li><strong>Daniella Perez (1992):</strong> após o assassinato da atriz, campanha popular levou à <strong>Lei 8.930/1994</strong>, que incluiu o homicídio qualificado no rol de crimes hediondos (Lei 8.072/1990).</li>
+<li><strong>Carolina Dieckmann (2012):</strong> a divulgação de fotos íntimas obtidas por invasão de dispositivo antecedeu a <strong>Lei 12.737/2012</strong>, que criou o art. 154-A do CP (invasão de dispositivo informático).</li>
+<li><strong>Mariana Ferrer (2020):</strong> a repercussão do tratamento dado à vítima em audiência levou à <strong>Lei 14.245/2021</strong>, que protege vítimas e testemunhas contra atos atentatórios à sua dignidade durante o processo.</li>
+</ul></div>
+<h3>3.2 Princípio da insignificância</h3>
+<p>Decorre da fragmentariedade e da intervenção mínima: condutas formalmente típicas, mas sem lesão relevante ao bem jurídico, são materialmente atípicas.</p>
+<div class="juris"><span class="t">Jurisprudência</span>
+<ul>
+<li><strong>STF, HC 84.412/SP (2ª Turma, rel. Min. Celso de Mello, 2004):</strong> fixou os quatro vetores da insignificância: (a) mínima ofensividade da conduta; (b) nenhuma periculosidade social da ação; (c) reduzidíssimo grau de reprovabilidade do comportamento; (d) inexpressividade da lesão jurídica.</li>
+<li><strong>Súmula 589 do STJ:</strong> é inaplicável o princípio da insignificância nos crimes ou contravenções penais praticados contra a mulher no âmbito das relações domésticas.</li>
+<li><strong>Súmula 599 do STJ:</strong> o princípio da insignificância é inaplicável aos crimes contra a administração pública.</li>
+</ul></div>
+<div class="caso"><span class="t">Caso real · os irmãos Naves (Araguari/MG, 1937)</span>Sebastião e Joaquim Naves foram presos, torturados e condenados pela morte de Benedito Pereira Caetano, que reapareceu vivo em 1952. É considerado um dos maiores erros judiciários do país e ilustra por que as garantias penais e processuais são limites ao poder punitivo. O caso inspirou o filme <em>O Caso dos Irmãos Naves</em> (1967), de Luís Sérgio Person.</div>
+</section>
+
+<section id="relacoes">
+<h2>4. Relações com outros ramos do Direito</h2>
+<ul>
+<li><strong>Constitucional:</strong> a relação principal. A Constituição fixa princípios (legalidade, anterioridade, individualização, pessoalidade), mandados de criminalização (art. 5º, XLII a XLIV) e vedações (art. 5º, XLVII).</li>
+<li><strong>Processual Penal:</strong> é o meio pelo qual o Direito Penal é aplicado ao caso concreto.</li>
+<li><strong>Civil:</strong> fornece conceitos usados pelos tipos penais (posse, propriedade, casamento, coisa alheia).</li>
+<li><strong>Empresarial:</strong> a Lei 11.101/2005 (recuperação judicial e falência) contém crimes falimentares (arts. 168 e seguintes).</li>
+<li><strong>Administrativo:</strong> crimes contra a administração pública (CP, arts. 312 e seguintes) e conceitos como o de funcionário público (art. 327).</li>
+<li><strong>Ambiental e tributário:</strong> Lei 9.605/1998 (crimes ambientais) e Lei 8.137/1990 (crimes contra a ordem tributária).</li>
+</ul>
+</section>
+
+<div class="part">Parte II · Teoria da Norma Penal (arts. 1º a 12 do CP)</div>
+
+<section id="norma">
+<h2>5. Norma penal: conceito e classificação</h2>
+<p><strong>Conceito:</strong> norma jurídica que define as infrações penais e suas consequências, ou que estabelece regras de interpretação e aplicação do Direito Penal.</p>
+<h3>5.1 Normas incriminadoras</h3>
+<p>Definem a infração e cominam a sanção. Têm dois preceitos:</p>
+<ul>
+<li><strong>Preceito primário:</strong> descreve a conduta. Contém um comando <em>indireto</em>: "matar alguém" (art. 121) proíbe matar sem dizer "não mate".</li>
+<li><strong>Preceito secundário:</strong> comina a pena ("reclusão, de seis a vinte anos").</li>
+</ul>
+<h3>5.2 Normas não incriminadoras (integrantes)</h3>
+<ul>
+<li><strong>Permissivas:</strong> autorizam condutas típicas. Podem ser <em>justificantes</em>, que excluem a ilicitude (art. 23), ou <em>exculpantes</em>, que excluem a culpabilidade (arts. 26, <em>caput</em>, e 28, § 1º).</li>
+<li><strong>Explicativas:</strong> esclarecem conceitos. Exemplos: art. 327 (funcionário público) e art. 150, § 4º (expressão "casa").</li>
+<li><strong>Complementares:</strong> delimitam a aplicação de outras normas. Exemplos: art. 5º (territorialidade) e art. 49 (multa).</li>
+</ul>
+</section>
+
+<section id="fontes">
+<h2>6. Fontes, interpretação e analogia</h2>
+<ul>
+<li><strong>Fonte de produção (material):</strong> a União, pois compete privativamente a ela legislar sobre Direito Penal (CF, art. 22, I). A lei é votada pelo Congresso Nacional.</li>
+<li><strong>Fonte formal imediata:</strong> a <strong>lei</strong>, única capaz de criar crimes e cominar penas (CF, art. 5º, XXXIX; CP, art. 1º). Medida provisória não pode versar sobre Direito Penal (CF, art. 62, § 1º, I, "b").</li>
+<li><strong>Fontes formais mediatas / instrumentos de interpretação:</strong> costumes, princípios gerais do direito, jurisprudência e doutrina. Ajudam a interpretar a lei, mas <strong>não criam nem agravam</strong> crimes ou penas.</li>
+</ul>
+<h3>6.1 Analogia</h3>
+<p>Analogia é forma de <strong>integração</strong>: aplica-se a um caso não previsto a regra de um caso semelhante. Em Direito Penal só se admite analogia <strong><em>in bonam partem</em></strong> (em favor do réu). A analogia <em>in malam partem</em> viola a legalidade. Não se confunde com a <strong>interpretação analógica</strong>, autorizada pela própria lei quando ela usa uma fórmula genérica após exemplos, como "ou por outro meio insidioso ou cruel" (art. 121, § 2º, III).</p>
+<div class="juris"><span class="t">Jurisprudência · homotransfobia (ADO 26 e MI 4.733)</span>Em <strong>13/06/2019</strong>, o STF, por 8 votos a 3, reconheceu omissão legislativa e decidiu que, até que o Congresso edite lei específica, condutas homofóbicas e transfóbicas se enquadram nos tipos da <strong>Lei 7.716/1989</strong>, a partir de um conceito social (não biológico) de racismo, ressalvada a liberdade religiosa.<br><strong>Controvérsia:</strong> para a maioria, tratou-se de interpretação conforme a Constituição do conceito de racismo. Parte relevante da doutrina critica a decisão como analogia <em>in malam partem</em> e violação da reserva legal. Em prova, apresente as duas posições.</div>
+</section>
+
+<section id="branco">
+<h2>7. Norma penal em branco</h2>
+<p>É a norma cujo <strong>preceito primário é incompleto</strong> e precisa ser complementado por outra norma.</p>
+<ul>
+<li><strong>Homogênea (em sentido amplo ou <em>lato</em>):</strong> o complemento vem de fonte do mesmo nível, ou seja, outra lei.
+  <ul>
+  <li><em>Homóloga (homovitelina):</em> complemento na mesma lei ou no mesmo ramo. Exemplo: o conceito de funcionário público do art. 327 complementa os crimes funcionais.</li>
+  <li><em>Heteróloga (heterovitelina):</em> complemento em lei de outro ramo. Exemplo: art. 237 do CP (casamento com conhecimento de impedimento), complementado pelo Código Civil (art. 1.521). Nas aulas, também foram citados os arts. 184 (direito autoral, Lei 9.610/1998) e 235 (bigamia, conceito civil de casamento).</li>
+  </ul></li>
+<li><strong>Heterogênea (em sentido estrito ou próprio):</strong> o complemento vem de ato de hierarquia inferior, normalmente administrativo. Exemplo clássico: a Lei de Drogas (Lei 11.343/2006, arts. 1º, parágrafo único, e 66) é complementada pela <strong>Portaria SVS/MS 344/1998</strong> da ANVISA.</li>
+<li><strong>Norma penal em branco ao avesso (inversa):</strong> o incompleto é o <em>preceito secundário</em>, e só lei pode complementá-lo. Exemplo: a Lei 2.889/1956 (genocídio), que remete às penas de tipos do CP.</li>
+</ul>
+<div class="juris"><span class="t">Jurisprudência · lança-perfume (STF, HC 94.397/BA)</span>Um réu foi acusado de comercializar lança-perfume na Bahia em 1998. Em 07/12/2000, a Resolução RDC 104 da ANVISA retirou o cloreto de etila da lista de entorpecentes, e em 15/12/2000 a resolução republicada o reincluiu. A <strong>2ª Turma do STF (rel. Min. Cezar Peluso, 09/03/2010)</strong> reconheceu que a exclusão, ainda que temporária, produziu <em>abolitio criminis</em> em relação aos fatos anteriores. A alteração benéfica do complemento de norma penal em branco heterogênea retroage (CP, art. 2º; CF, art. 5º, XL).</div>
+</section>
+
+<section id="conflito">
+<h2>8. Conflito aparente de normas penais</h2>
+<p>Ocorre quando, para um único fato, <strong>mais de uma norma parece aplicável</strong>. O conflito é só aparente, porque se resolve por princípios que indicam a única norma incidente, evitando o <em>bis in idem</em>. São pressupostos: unidade de fato, pluralidade de normas e vigência simultânea delas.</p>
+<div class="tw"><table>
+<tr><th>Princípio</th><th>Ideia</th><th>Exemplos</th></tr>
+<tr><td><strong>Especialidade</strong></td><td>A norma especial, que tem todos os elementos da geral e mais alguns (especializantes), prevalece: <em>lex specialis derogat legi generali</em>.</td><td>Infanticídio (art. 123) × homicídio (art. 121). Crime militar (CPM) × crime comum (CP). O CP funciona como norma geral em relação à legislação extravagante (art. 12).</td></tr>
+<tr><td><strong>Subsidiariedade</strong></td><td>A norma primária, mais grave, afasta a subsidiária, menos grave: <em>lex primaria derogat legi subsidiariae</em>. Pode ser <strong>expressa</strong> (a lei diz "se o fato não constitui crime mais grave") ou <strong>tácita</strong> (o tipo menos grave integra o mais grave como elemento ou meio).</td><td>Expressa: arts. 132, 307 e 308 do CP. Tácita: constrangimento ilegal (art. 146) em relação ao roubo (art. 157).</td></tr>
+<tr><td><strong>Consunção (absorção)</strong></td><td>O crime-meio ou a fase normal de execução é absorvido pelo crime-fim. Abrange crime progressivo, progressão criminosa e fatos anteriores ou posteriores impuníveis.</td><td>Lesão corporal (art. 129) absorvida pelo homicídio (art. 121). Violação de domicílio (art. 150) para furtar (art. 155). Dano ao obstáculo (art. 163) no furto qualificado por rompimento de obstáculo (art. 155, § 4º, I). Falso (arts. 297/298) exaurido no estelionato (art. 171): Súmula 17 do STJ.</td></tr>
+<tr><td><strong>Alternatividade</strong></td><td>Nos tipos mistos alternativos (vários verbos), a prática de mais de um núcleo no mesmo contexto configura crime único.</td><td>Art. 33 da Lei 11.343/2006 ("importar, exportar, remeter, preparar... vender...").</td></tr>
+</table></div>
+<div class="juris"><span class="t">Súmula 17 do STJ</span>"Quando o falso se exaure no estelionato, sem mais potencial lesivo, é por este absorvido." A absorção depende de a falsidade <strong>não conservar potencialidade lesiva autônoma</strong>. Se o documento falso puder ser reutilizado em outras fraudes, não há absorção.</div>
+<div class="alerta"><span class="t">Correção às anotações</span>A subsidiariedade <strong>não</strong> depende de previsão expressa. Ela pode ser expressa (arts. 132, 307, 308) ou tácita.</div>
+</section>
+
+<section id="tempo">
+<h2>9. Lei penal no tempo (arts. 1º a 4º)</h2>
+<h3>9.1 Legalidade e anterioridade</h3>
+<div class="law"><span class="ref">CF, art. 5º, XXXIX · CP, art. 1º</span>Não há crime sem lei anterior que o defina. Não há pena sem prévia cominação legal. (<em>nullum crimen, nulla poena sine praevia lege</em>)</div>
+<p>Da legalidade decorrem quatro exigências: a lei deve ser <strong>escrita</strong> (vedado o costume incriminador), <strong>estrita</strong> (vedada a analogia <em>in malam partem</em>), <strong>certa</strong> (taxativa, vedados tipos vagos) e <strong>prévia</strong> (anterioridade).</p>
+<h3>9.2 Irretroatividade maléfica e retroatividade benéfica</h3>
+<div class="law"><span class="ref">CF, art. 5º, XL</span>A lei penal não retroagirá, salvo para beneficiar o réu.</div>
+<div class="law"><span class="ref">CP, art. 2º</span>Ninguém pode ser punido por fato que lei posterior deixa de considerar crime, cessando em virtude dela a execução e os efeitos penais da sentença condenatória.<br><em>Parágrafo único.</em> A lei posterior, que de qualquer modo favorecer o agente, aplica-se aos fatos anteriores, ainda que decididos por sentença condenatória transitada em julgado.</div>
+<div class="tw"><table>
+<tr><th>Situação</th><th>Efeito</th></tr>
+<tr><td><strong><em>Novatio legis</em> incriminadora</strong> (cria crime)</td><td>Não retroage.</td></tr>
+<tr><td><strong><em>Novatio legis in pejus</em></strong> (agrava)</td><td>Não retroage. A lei anterior, mais benéfica, continua a reger o fato (<strong>ultra-atividade</strong>).</td></tr>
+<tr><td><strong><em>Abolitio criminis</em></strong> (descriminaliza)</td><td>Retroage. Extingue a punibilidade (art. 107, III) e faz cessar a execução e os <strong>efeitos penais</strong> da condenação. Os <strong>efeitos civis</strong> (por exemplo, o dever de indenizar) permanecem.</td></tr>
+<tr><td><strong><em>Novatio legis in mellius</em></strong> (beneficia)</td><td>Retroage, inclusive após o trânsito em julgado.</td></tr>
+</table></div>
+<div class="caso"><span class="t">Exemplos reais de <em>abolitio criminis</em></span>
+<ul>
+<li><strong>Lei 11.106/2005:</strong> revogou os crimes de <strong>adultério</strong> (art. 240), <strong>sedução</strong> (art. 217) e <strong>rapto consensual</strong> (art. 220).</li>
+<li><strong><em>Abolitio criminis</em> temporária · Súmula 513 do STJ:</strong> "A abolitio criminis temporária prevista na Lei n. 10.826/2003 aplica-se ao crime de posse de arma de fogo de uso permitido com numeração, marca ou qualquer outro sinal de identificação raspado, suprimido ou adulterado, praticado somente até 23/10/2005."</li>
+</ul></div>
+<div class="alerta"><span class="t">Não confunda: princípio da continuidade normativo-típica</span>Se a lei revoga um artigo, mas a conduta continua criminosa em outro dispositivo, <strong>não há <em>abolitio criminis</em></strong>. Exemplo: a Lei 12.015/2009 revogou o art. 214 (atentado violento ao pudor), mas a conduta foi incorporada ao novo art. 213 (estupro).</div>
+<h3>9.3 Quem aplica a lei mais benéfica após o trânsito em julgado</h3>
+<div class="juris"><span class="t">Súmula 611 do STF</span>"Transitada em julgado a sentença condenatória, compete ao juízo das execuções a aplicação de lei mais benigna." (ver também LEP, art. 66, I)</div>
+<h3>9.4 Combinação de leis (<em>lex tertia</em>)</h3>
+<p>Pergunta clássica: o juiz pode combinar as partes favoráveis da lei antiga e da nova? A doutrina diverge, mas a jurisprudência dos tribunais superiores <strong>veda a combinação</strong>, porque o juiz estaria criando uma terceira lei. Deve-se aplicar <strong>integralmente</strong> a lei que, no caso concreto, for mais favorável.</p>
+<div class="juris"><span class="t">Jurisprudência</span>
+<ul>
+<li><strong>STF, RE 600.817 (Plenário, 07/11/2013, Tema 169 da repercussão geral):</strong> vedou aplicar a causa de diminuição do art. 33, § 4º, da Lei 11.343/2006 sobre a pena-base da Lei 6.368/1976. O juiz deve calcular a pena pelas duas leis, cada uma por inteiro, e aplicar a mais favorável.</li>
+<li><strong>Súmula 501 do STJ:</strong> "É cabível a aplicação retroativa da Lei n. 11.343/2006, desde que o resultado da incidência das suas disposições, na íntegra, seja mais favorável ao réu do que o da aplicação da Lei n. 6.368/1976, sendo vedada a combinação de leis."</li>
+</ul></div>
+<div class="alerta"><span class="t">Correção às anotações</span>Não se faz "uma média da pena de cada norma". Compara-se o resultado de cada lei aplicada por inteiro e escolhe-se a mais favorável.</div>
+<h3>9.5 Leis excepcionais e temporárias (art. 3º)</h3>
+<div class="law"><span class="ref">CP, art. 3º</span>A lei excepcional ou temporária, embora decorrido o período de sua duração ou cessadas as circunstâncias que a determinaram, aplica-se ao fato praticado durante sua vigência.</div>
+<ul>
+<li><strong>Lei temporária:</strong> tem prazo de vigência prefixado no próprio texto.</li>
+<li><strong>Lei excepcional:</strong> vigora enquanto durar uma situação anormal (guerra, calamidade, epidemia).</li>
+<li>Ambas são <strong>ultra-ativas</strong>: continuam a reger os fatos praticados durante sua vigência. Sem isso, perderiam a força intimidativa à medida que o prazo se aproximasse do fim.</li>
+</ul>
+<div class="caso"><span class="t">Exemplo real de lei penal temporária · Lei Geral da Copa</span>A <strong>Lei 12.663/2012</strong> criou crimes nos arts. 30 a 33, como a utilização indevida de símbolos oficiais e o "marketing de emboscada". O art. 36 dispôs: "Os tipos penais previstos neste Capítulo terão vigência até o dia 31 de dezembro de 2014." É exemplo brasileiro de lei penal temporária, o que corrige a afirmação das anotações de que não haveria exemplo no Brasil.</div>
+<h3>9.6 Tempo do crime (art. 4º)</h3>
+<div class="law"><span class="ref">CP, art. 4º</span>Considera-se praticado o crime no momento da ação ou omissão, ainda que outro seja o momento do resultado.</div>
+<ul>
+<li><strong>Teoria da atividade (adotada):</strong> importa o momento da conduta.</li>
+<li><strong>Teoria do resultado:</strong> importaria o momento do resultado. Não foi adotada.</li>
+<li><strong>Teoria mista ou da ubiquidade:</strong> consideraria os dois momentos. Não foi adotada para o <em>tempo</em>, mas é a regra do CP para o <em>lugar</em> (art. 6º).</li>
+</ul>
+<div class="dica"><span class="t">Exemplo clássico</span>O agente atira na vítima aos 17 anos, e ela morre quando ele já tem 18. Pelo art. 4º, o fato foi praticado quando ele era menor, então responde por <strong>ato infracional</strong> (ECA), não por crime.</div>
+<div class="alerta"><span class="t">Correção às anotações · prescrição</span>A prescrição não é propriamente uma "exceção" ao art. 4º. O art. 4º define o tempo do crime para saber qual lei se aplica e se o agente era imputável. O <strong>termo inicial da prescrição</strong> tem regra própria: antes do trânsito em julgado, ela começa a correr "do dia em que o crime se consumou" (art. 111, I). Há regras especiais para a tentativa, o crime permanente e outras hipóteses (art. 111, II a V).</div>
+<h3>9.7 Crime permanente e crime continuado: Súmula 711 do STF</h3>
+<div class="juris"><span class="t">Súmula 711 do STF</span>"A lei penal mais grave aplica-se ao crime continuado ou ao crime permanente, se a sua vigência é anterior à cessação da continuidade ou da permanência."<br><strong>Exemplo:</strong> na extorsão mediante sequestro (crime permanente), se lei mais grave entrar em vigor enquanto a vítima ainda está em cativeiro, a nova lei se aplica. A súmula menciona apenas os crimes continuado e permanente. Estender o mesmo raciocínio a crimes habituais exige análise específica.</div>
+</section>
+
+<section id="espaco">
+<h2>10. Lei penal no espaço (arts. 5º a 7º)</h2>
+<h3>10.1 Territorialidade temperada (art. 5º)</h3>
+<div class="law"><span class="ref">CP, art. 5º, caput</span>Aplica-se a lei brasileira, sem prejuízo de convenções, tratados e regras de direito internacional, ao crime cometido no território nacional.</div>
+<p>A regra é a <strong>territorialidade</strong>, "temperada" porque tratados e regras internacionais podem afastá-la, como nas imunidades diplomáticas.</p>
+<h4>Território em sentido estrito (real)</h4>
+<ul>
+<li>Solo e subsolo dentro das fronteiras, águas interiores e lagos e rios.</li>
+<li><strong>Mar territorial de 12 milhas marítimas</strong> (Lei 8.617/1993, art. 1º), com o leito e o subsolo correspondentes.</li>
+<li><strong>Espaço aéreo</strong> sobrejacente, sobre o qual o Brasil exerce soberania completa e exclusiva (Código Brasileiro de Aeronáutica, Lei 7.565/1986, art. 11).</li>
+<li><strong>Fronteiras naturais:</strong> em rios, adota-se em regra o <strong>talvegue</strong> (linha de maior profundidade do leito, que acompanha o canal navegável principal). Em cadeias de montanhas, a <strong>linha de cumeada</strong> (divisor de águas). Tratados de limites podem dispor de outro modo.</li>
+</ul>
+<h4>Território por extensão (ficção jurídica · art. 5º, §§ 1º e 2º)</h4>
+<div class="tw"><table>
+<tr><th>Embarcação/aeronave</th><th>Regra</th></tr>
+<tr><td>Brasileira <strong>pública</strong> ou a serviço do governo brasileiro</td><td>Extensão do território nacional <strong>onde quer que se encontre</strong> (§ 1º, 1ª parte).</td></tr>
+<tr><td>Brasileira <strong>mercante ou privada</strong></td><td>Extensão do território nacional quando estiver <strong>em alto-mar</strong> ou no espaço aéreo correspondente (§ 1º, 2ª parte). Em território estrangeiro, aplica-se em regra a lei local, ressalvado o art. 7º, II, "c".</td></tr>
+<tr><td><strong>Estrangeira privada</strong></td><td>Aplica-se a lei brasileira aos crimes praticados a bordo quando ela estiver pousada ou em voo no espaço aéreo brasileiro, ou em porto ou mar territorial do Brasil (§ 2º).</td></tr>
+</table></div>
+<h3>10.2 Lugar do crime (art. 6º)</h3>
+<div class="law"><span class="ref">CP, art. 6º</span>Considera-se praticado o crime no lugar em que ocorreu a ação ou omissão, no todo ou em parte, bem como onde se produziu ou deveria produzir-se o resultado.</div>
+<ul>
+<li><strong>Teoria da atividade:</strong> lugar da conduta. <strong>Teoria do resultado:</strong> lugar do resultado. <strong>Teoria da ubiquidade (mista):</strong> ambos. O CP adota a <strong>ubiquidade</strong>.</li>
+<li>A regra resolve os <strong>crimes à distância</strong> (conduta em um país e resultado em outro): o Brasil é competente se qualquer parte da conduta ou do resultado ocorreu aqui.</li>
+</ul>
+<div class="dica"><span class="t">Mnemônico didático · LUTA</span><strong>L</strong>ugar = <strong>U</strong>biquidade; <strong>T</strong>empo = <strong>A</strong>tividade.</div>
+<div class="alerta"><span class="t">Cuidado: o art. 6º não resolve competência interna</span>O art. 6º define o lugar do crime para aplicar a lei brasileira no plano internacional. Para a competência <strong>entre juízos brasileiros</strong>, o CPP adota como regra o <strong>lugar da consumação</strong> (art. 70). Nos Juizados Especiais Criminais, vale o <strong>lugar em que foi praticada a infração</strong> (Lei 9.099/1995, art. 63). Como disseram as anotações, o art. 6º "apenas define o lugar".</div>
+<h3>10.3 Extraterritorialidade (art. 7º)</h3>
+<p>São as hipóteses em que a lei brasileira se aplica a crimes cometidos <strong>fora</strong> do território nacional.</p>
+<div class="tw"><table>
+<tr><th>Hipótese (art. 7º)</th><th>Princípio (classificação usual)</th><th>Espécie</th></tr>
+<tr><td>I, "a": contra a vida ou a liberdade do Presidente da República</td><td>Real, da defesa ou da proteção</td><td rowspan="4">Incondicionada (§ 1º)</td></tr>
+<tr><td>I, "b": contra o patrimônio ou a fé pública da União, do DF, de Estado, de Território, de Município, de empresa pública, sociedade de economia mista, autarquia ou fundação instituída pelo Poder Público</td><td>Real / defesa</td></tr>
+<tr><td>I, "c": contra a administração pública, por quem está a seu serviço</td><td>Real / defesa</td></tr>
+<tr><td>I, "d": genocídio, quando o agente for brasileiro ou domiciliado no Brasil</td><td>Justiça universal (majoritário). Há quem o classifique como real ou como nacionalidade/domicílio.</td></tr>
+<tr><td>II, "a": crimes que, por tratado ou convenção, o Brasil se obrigou a reprimir</td><td>Justiça universal (cosmopolita)</td><td rowspan="3">Condicionada (§ 2º)</td></tr>
+<tr><td>II, "b": crimes praticados por brasileiro</td><td>Nacionalidade (ou personalidade) ativa</td></tr>
+<tr><td>II, "c": crimes praticados em aeronaves ou embarcações brasileiras, mercantes ou de propriedade privada, quando em território estrangeiro e aí não sejam julgados</td><td>Representação, pavilhão ou bandeira</td></tr>
+<tr><td>§ 3º: crime cometido por estrangeiro contra brasileiro fora do Brasil</td><td>Nacionalidade passiva (para parte da doutrina, defesa)</td><td>Hipercondicionada</td></tr>
+</table></div>
+<h4>Incondicionada (§ 1º)</h4>
+<p>Nos casos do inciso I, o agente é punido pela lei brasileira <strong>ainda que absolvido ou condenado no estrangeiro</strong>. Isso vale para as quatro alíneas, e não só para crimes contra o Presidente.</p>
+<h4>Condicionada (§ 2º): condições cumulativas</h4>
+<ol type="a">
+<li>entrar o agente no território nacional;</li>
+<li>ser o fato punível também no país em que foi praticado (dupla tipicidade);</li>
+<li>estar o crime incluído entre aqueles pelos quais a lei brasileira autoriza a extradição;</li>
+<li>não ter sido o agente absolvido no estrangeiro ou não ter aí cumprido a pena;</li>
+<li>não ter sido o agente perdoado no estrangeiro ou, por outro motivo, não estar extinta a punibilidade, segundo a lei mais favorável.</li>
+</ol>
+<h4>Hipercondicionada (§ 3º)</h4>
+<p>Além das condições do § 2º, exige-se que (a) não tenha sido pedida ou tenha sido negada a extradição; e (b) haja requisição do Ministro da Justiça.</p>
+<div class="juris"><span class="t">Jurisprudência · <em>ne bis in idem</em> internacional</span>Pela letra da alínea "d" do § 2º, o Brasil poderia processar quem foi condenado no exterior e não cumpriu a pena. O STF, porém, no <strong>HC 171.118 (2ª Turma, rel. Min. Gilmar Mendes, 12/11/2019)</strong>, com base no art. 14.7 do Pacto Internacional sobre Direitos Civis e Políticos e no art. 8.4 da Convenção Americana, proibiu nova persecução penal no Brasil pelos mesmos fatos já julgados, com trânsito em julgado, por outro Estado. No mesmo sentido, a <strong>Ext 1.223 (rel. Min. Celso de Mello)</strong>. Esse entendimento foi decisivo no caso Robinho (item 14).</div>
+<div class="dica"><span class="t">Roteiro para resolver um caso concreto</span>
+<ol>
+<li><strong>Onde ocorreu?</strong> Use o art. 6º (ubiquidade) e o art. 5º (território real ou por extensão). Se ocorreu no Brasil, aplica-se a lei brasileira por territorialidade.</li>
+<li><strong>Se ocorreu fora:</strong> verifique se o caso se encaixa em alguma hipótese do art. 7º, e se ela é incondicionada, condicionada ou hipercondicionada.</li>
+<li><strong>Se for condicionada:</strong> confira as cinco condições do § 2º (e as do § 3º, se for o caso).</li>
+<li>Se nenhuma hipótese se aplicar, a lei brasileira não alcança o fato.</li>
+<li>Por fim, avalie os limites: <em>ne bis in idem</em> internacional, extradição (item 13) e transferência da execução da pena (item 14).</li>
+</ol></div>
+</section>
+
+<section id="pessoas">
+<h2>11. Lei penal em relação às pessoas: imunidades</h2>
+<p><strong>Conceito:</strong> conjunto de prerrogativas que protege certas pessoas, em razão das funções que exercem, contra a aplicação da lei penal ou da lei processual penal brasileira.</p>
+<ul>
+<li><strong>Quanto ao alcance:</strong> <em>material</em> (inviolabilidade, que afasta a responsabilidade penal) ou <em>processual/formal</em> (regras sobre foro, prisão e processo).</li>
+<li><strong>Quanto aos destinatários:</strong> diplomatas e cônsules; parlamentares; advogados e membros do Ministério Público (nos limites legais).</li>
+</ul>
+
+<h3>11.1 Imunidades diplomáticas</h3>
+<p>Base: <strong>Convenção de Viena sobre Relações Diplomáticas (1961)</strong>, promulgada pelo Decreto 56.435/1965. O Estado que envia a missão é o <strong>acreditante</strong>; o que a recebe é o <strong>acreditado</strong>.</p>
+<ul>
+<li><strong>Inviolabilidade pessoal</strong> (art. 29): o agente diplomático não pode ser preso ou detido.</li>
+<li><strong>Imunidade de jurisdição penal</strong> no Estado acreditado (art. 31). Ela <strong>não o isenta da jurisdição do Estado acreditante</strong> (art. 31.4), onde pode ser processado.</li>
+<li>Estende-se aos <strong>familiares</strong> que com ele vivam (art. 37).</li>
+<li>O Estado acreditado pode declará-lo <strong><em>persona non grata</em></strong> a qualquer tempo, sem justificar (art. 9º).</li>
+<li>O Estado acreditante pode <strong>renunciar</strong> à imunidade, sempre de forma expressa (art. 32).</li>
+</ul>
+<div class="caso"><span class="t">Caso real · diplomata iraniano em Brasília (abril de 2012)</span>Um diplomata da embaixada do Irã foi acusado de tocar meninas de 9 a 14 anos na piscina de um clube em Brasília. Levado à delegacia, foi liberado em razão da imunidade diplomática e deixou o Brasil. O Itamaraty pediu explicações formais ao Irã, e o governo iraniano posteriormente anunciou seu afastamento. O caso mostra, na prática, que a resposta possível ao crime de um diplomata passa pela jurisdição do Estado acreditante e por medidas diplomáticas, não pelo processo penal brasileiro.</div>
+
+<h3>11.2 Cônsules</h3>
+<p>Base: <strong>Convenção de Viena sobre Relações Consulares (1963)</strong>, promulgada pelo Decreto 61.078/1967. A proteção é <strong>menor</strong> que a do diplomata:</p>
+<ul>
+<li><strong>Imunidade de jurisdição apenas funcional:</strong> abrange só os atos praticados no exercício das funções consulares (art. 43).</li>
+<li><strong>Inviolabilidade pessoal limitada:</strong> o funcionário consular pode ser preso preventivamente em caso de crime grave, por decisão judicial (art. 41).</li>
+</ul>
+<div class="alerta"><span class="t">Correção às anotações</span>O cônsul <strong>não</strong> tem "total imunidade processual". Por crimes alheios às funções consulares, pode ser processado no Brasil.</div>
+
+<h3>11.3 Imunidades parlamentares</h3>
+<div class="law"><span class="ref">CF, art. 53, caput (redação da EC 35/2001)</span>Os Deputados e Senadores são invioláveis, civil e penalmente, por quaisquer de suas opiniões, palavras e votos.</div>
+<ul>
+<li><strong>Material (inviolabilidade):</strong> exige ligação com o exercício do mandato. No recinto do Parlamento, essa ligação é presumida.</li>
+<li><strong>Foro por prerrogativa</strong> (§ 1º): julgamento pelo STF desde a expedição do diploma.</li>
+<li><strong>Prisão</strong> (§ 2º): só em flagrante de crime inafiançável. Os autos vão em 24 horas à Casa respectiva, que decide sobre a prisão pelo voto da maioria de seus membros.</li>
+<li><strong>Sustação do processo</strong> (§§ 3º a 5º): recebida denúncia por crime ocorrido após a diplomação, a Casa pode sustar o andamento da ação. A prescrição fica suspensa enquanto durar o mandato.</li>
+<li><strong>Deputados estaduais:</strong> aplicam-se as mesmas regras (CF, art. 27, § 1º).</li>
+<li><strong>Vereadores:</strong> só inviolabilidade <strong>material</strong>, por opiniões, palavras e votos no exercício do mandato e na circunscrição do Município (CF, art. 29, VIII). Não têm imunidade processual.</li>
+</ul>
+<div class="juris"><span class="t">Jurisprudência</span>
+<ul>
+<li><strong>Súmula 245 do STF:</strong> "A imunidade parlamentar não se estende ao co-réu sem essa prerrogativa."</li>
+<li><strong>STF, RE 600.063 (Tema 469, 25/02/2015):</strong> "Nos limites da circunscrição do município e havendo pertinência com o exercício do mandato, garante-se a imunidade ao vereador."</li>
+<li><strong>STF, AP 1.044 (Plenário, 20/04/2022), caso Daniel Silveira:</strong> o deputado federal foi condenado, por 9 votos a 2, a 8 anos e 9 meses de reclusão, entre outros, por coação no curso do processo. O STF afirmou que a imunidade material não protege ameaças e ataques às instituições do Estado Democrático de Direito.</li>
+<li><strong>Foro por prerrogativa · evolução:</strong> na <strong>AP 937 QO (03/05/2018)</strong>, o STF restringiu o foro a crimes cometidos durante o exercício do cargo e relacionados às funções. No <strong>HC 232.627 e no Inq 4.787 (março de 2025, 7 votos a 4)</strong>, fixou que "a prerrogativa de foro para julgamento de crimes praticados no cargo e em razão das funções subsiste mesmo após o afastamento do cargo, ainda que o inquérito ou a ação penal sejam iniciados depois de cessado seu exercício".</li>
+</ul></div>
+
+<h3>11.4 Advogados e Ministério Público</h3>
+<ul>
+<li><strong>CP, art. 142, I:</strong> não constitui injúria ou difamação punível a ofensa irrogada em juízo, na discussão da causa, pela parte ou por seu procurador. A doutrina chama essa hipótese de <em>imunidade judiciária</em>. É causa de exclusão do crime restrita à injúria e à difamação, e não alcança a calúnia.</li>
+<li><strong>Advogado · Lei 8.906/1994 (EAOAB), art. 7º, § 2º:</strong> imunidade profissional por manifestações no exercício da atividade, abrangendo injúria e difamação, sem prejuízo de sanções disciplinares. O STF, na <strong>ADI 1.127</strong>, declarou inconstitucional a extensão da imunidade ao <strong>desacato</strong>.</li>
+<li><strong>Ministério Público:</strong> inviolabilidade pelas opiniões e manifestações processuais, nos limites da independência funcional. Prevista na Lei Orgânica Nacional do MP, <strong>Lei 8.625/1993</strong>, art. 41, V (nas anotações constou "8.653/93"), e, para o MPU, na LC 75/1993.</li>
+</ul>
+</section>
+
+<section id="inafiancaveis">
+<h2>12. Crimes inafiançáveis e imprescritíveis (CF, art. 5º)</h2>
+<div class="tw"><table>
+<tr><th>Dispositivo</th><th>Crimes</th><th>Regime constitucional</th></tr>
+<tr><td>XLII</td><td>Racismo</td><td>Inafiançável e <strong>imprescritível</strong>, sujeito a reclusão</td></tr>
+<tr><td>XLIII</td><td>Tortura, tráfico ilícito de entorpecentes, terrorismo e crimes hediondos (por exemplo, estupro, latrocínio e homicídio qualificado)</td><td>Inafiançáveis e insuscetíveis de graça ou anistia (mnemônico: <strong>TTTH</strong>)</td></tr>
+<tr><td>XLIV</td><td>Ação de grupos armados, civis ou militares, contra a ordem constitucional e o Estado Democrático</td><td>Inafiançável e <strong>imprescritível</strong></td></tr>
+</table></div>
+<div class="juris"><span class="t">Jurisprudência e legislação</span>No <strong>HC 154.248 (Plenário, 28/10/2021)</strong>, o STF decidiu que a injúria racial é espécie de racismo e, portanto, imprescritível. Depois, a <strong>Lei 14.532/2023</strong> tipificou a injúria racial na Lei 7.716/1989 (art. 2º-A).</div>
+</section>
+
+<section id="extradicao">
+<h2>13. Extradição</h2>
+<p><strong>Conceito:</strong> ato de cooperação internacional pelo qual um Estado entrega a outro uma pessoa acusada ou condenada, para que responda a processo penal ou cumpra pena. <strong>Pressupõe a prática de crime</strong>, e nisso difere da deportação e da expulsão, que são medidas administrativas de retirada compulsória. Também exige <strong>tratado</strong> ou <strong>promessa de reciprocidade</strong>.</p>
+<ul>
+<li><strong>Ativa:</strong> o Brasil é o Estado requerente. <strong>Passiva:</strong> o Brasil é o Estado requerido.</li>
+<li><strong>Instrutória:</strong> para responder a processo. <strong>Executória:</strong> para cumprir pena já imposta.</li>
+</ul>
+<div class="law"><span class="ref">CF, art. 5º, LI e LII</span>LI – nenhum brasileiro será extraditado, salvo o naturalizado, em caso de crime comum, praticado antes da naturalização, ou de comprovado envolvimento em tráfico ilícito de entorpecentes e drogas afins, na forma da lei;<br>LII – não será concedida extradição de estrangeiro por crime político ou de opinião.</div>
+<ul>
+<li><strong>Lei 13.445/2017</strong> (arts. 81 a 99): o art. 82 lista as hipóteses em que não se concede extradição, como brasileiro nato, fato que não é crime no Brasil ou no Estado requerente, crime político ou de opinião, prescrição, tribunal de exceção, refugiado ou asilado. O art. 83 lista as condições.</li>
+<li><strong>Competência:</strong> cabe ao STF processar e julgar a extradição solicitada por Estado estrangeiro (CF, art. 102, I, "g").</li>
+<li><strong>Papel do Presidente da República:</strong> se o STF <em>indefere</em>, a decisão vincula e a extradição não pode ser feita. Se o STF <em>defere</em>, a entrega fica a cargo do Presidente, dentro dos limites do tratado aplicável.</li>
+</ul>
+<div class="caso"><span class="t">Caso real · Cesare Battisti (STF, Ext 1.085)</span>Em <strong>18/11/2009</strong>, o STF autorizou, por 5 votos a 4, a extradição do italiano Cesare Battisti. Também por maioria apertada, reconheceu que a decisão final sobre a entrega cabia ao Presidente da República. O voto do Min. Gilmar Mendes ressaltou que essa decisão deve respeitar o tratado Brasil-Itália. O caso é a referência sobre a natureza da decisão do Presidente na extradição.</div>
+<div class="caso"><span class="t">Caso real · Cláudia Hoerig (perda da nacionalidade e extradição)</span>Brasileira nata, naturalizou-se norte-americana e foi acusada de matar o marido nos EUA. No <strong>MS 33.864 (1ª Turma, abril de 2016, rel. Min. Luís Roberto Barroso, 3 votos a 2)</strong>, o STF manteve a perda da nacionalidade brasileira decretada com base na redação então vigente do art. 12, § 4º, II, da CF. Sem a proteção do art. 5º, LI, a extradição foi deferida na <strong>Ext 1.462</strong>, e ela foi entregue aos EUA em <strong>janeiro de 2018</strong>.<br><strong>Atualização:</strong> a <strong>EC 131/2023</strong> alterou o art. 12, § 4º. Hoje, a perda da nacionalidade do brasileiro nato só ocorre por <strong>pedido expresso</strong>, ressalvadas as situações que levem à apatridia.</div>
+<div class="juris"><span class="t">Súmula 421 do STF</span>"Não impede a extradição a circunstância de ser o extraditando casado com brasileira ou ter filho brasileiro."</div>
+</section>
+
+<section id="finais">
+<h2>14. Disposições finais da Teoria da Norma (arts. 8º a 12)</h2>
+<div class="law"><span class="ref">CP, art. 8º · pena cumprida no estrangeiro</span>A pena cumprida no estrangeiro atenua a pena imposta no Brasil pelo mesmo crime, quando diversas, ou nela é computada, quando idênticas.</div>
+<div class="alerta"><span class="t">Correção às anotações</span>O art. 8º trata da <strong>detração/atenuação da pena cumprida no estrangeiro</strong>. Não é regra de "territorialidade e extraterritorialidade incondicionada". Ele se relaciona sobretudo com a extraterritorialidade incondicionada, em que o agente pode ser punido no Brasil mesmo já tendo sido condenado lá fora.</div>
+<h3>14.1 Eficácia da sentença estrangeira (art. 9º)</h3>
+<div class="law"><span class="ref">CP, art. 9º</span>A sentença estrangeira, quando a aplicação da lei brasileira produz na espécie as mesmas consequências, pode ser homologada no Brasil para: I – obrigar o condenado à reparação do dano, a restituições e a outros efeitos civis; II – sujeitá-lo a medida de segurança.</div>
+<p>A homologação é da competência do <strong>STJ</strong> (CF, art. 105, I, "i"). Tradicionalmente, a sentença penal estrangeira não podia ser executada no Brasil para cumprimento de pena privativa de liberdade. A <strong>Lei de Migração (arts. 100 a 102)</strong> criou a <strong>transferência da execução da pena</strong>.</p>
+<div class="caso"><span class="t">Caso real · Robinho (STJ, HDE 7.986, Corte Especial, 20/03/2024)</span>O ex-jogador foi condenado na Itália a 9 anos de reclusão por violência sexual de grupo cometida em Milão em 2013, com trânsito em julgado em 2022. A extradição foi negada porque ele é brasileiro nato. O STJ, por <strong>9 votos a 2</strong>, homologou a sentença e transferiu a execução da pena para o Brasil. As teses centrais foram:
+<ul>
+<li>A transferência <strong>não é extradição</strong> e, portanto, não viola o art. 5º, LI.</li>
+<li>O art. 100 da Lei 13.445/2017 alcança o brasileiro nato ("nacional").</li>
+<li>Por ser norma de cooperação internacional, aplica-se a fatos anteriores à lei.</li>
+<li>O juízo de delibação não permite rediscutir o mérito da condenação.</li>
+<li>Sem homologação, haveria impunidade, porque o <em>ne bis in idem</em> internacional (HC 171.118) impede novo processo no Brasil.</li>
+</ul>
+Os votos vencidos (Mins. Raul Araújo e Benedito Gonçalves) sustentaram que o art. 100 só se aplica quando couber extradição executória, o que exclui o brasileiro nato. Sustentaram ainda que faltava tratado prevendo a transferência e que a lei não poderia retroagir, e apontaram o art. 7º, II, "b", do CP como alternativa. O STF manteve a decisão do STJ ao julgar habeas corpus da defesa.</div>
+<h3>14.2 Arts. 10 a 12</h3>
+<ul>
+<li><strong>Art. 10 (contagem de prazo penal):</strong> o dia do começo inclui-se no cômputo do prazo, e os dias, meses e anos contam-se pelo calendário comum. É diferente do prazo processual (CPP, art. 798, § 1º), que exclui o dia do começo.</li>
+<li><strong>Art. 11:</strong> desprezam-se, nas penas privativas de liberdade e restritivas de direitos, as frações de dia, e, na pena de multa, as frações de cruzeiro (hoje, de real).</li>
+<li><strong>Art. 12:</strong> as regras gerais do CP aplicam-se aos fatos incriminados por lei especial, se esta não dispuser de modo diverso.</li>
+</ul>
+</section>
+
+<div class="part">Parte III · Teoria do Crime (arts. 13 a 31 do CP)</div>
+
+<section id="crime">
+<h2>15. Conceito de crime</h2>
+<ul>
+<li><strong>Formal:</strong> conduta humana a que a lei comina uma sanção penal. Tecnicamente, é crime o que a lei assim define (DL 3.914/1941, art. 1º).</li>
+<li><strong>Material:</strong> conduta humana que lesa ou expõe a perigo os bens jurídicos mais importantes da sociedade.</li>
+<li><strong>Analítico (estratificado ou dogmático):</strong> decompõe o crime em elementos. Pela concepção <strong>tripartida</strong>, adotada pela maioria da doutrina e neste curso, crime é o <strong>fato típico, ilícito (antijurídico) e culpável</strong>. Pela concepção <strong>bipartida</strong>, crime é o fato típico e ilícito, e a culpabilidade é pressuposto de aplicação da pena.</li>
+</ul>
+<div class="dica"><span class="t">Fórmula das aulas</span>Fato típico + ilicitude = <strong>injusto penal</strong> (ou tipo de injusto). Injusto penal + culpabilidade = <strong>crime</strong>.</div>
+<div class="tw"><table>
+<tr><th>Fato típico</th><th>Ilicitude (causas de justificação)</th><th>Culpabilidade</th></tr>
+<tr><td>Conduta (ação ou omissão; dolo ou culpa)<br>Resultado<br>Nexo de causalidade (art. 13)<br>Tipicidade (formal e material)</td><td>Estado de necessidade (art. 24)<br>Legítima defesa (art. 25)<br>Estrito cumprimento do dever legal<br>Exercício regular de direito (art. 23, III)<br>Consentimento do ofendido (supralegal)</td><td>Imputabilidade (arts. 26 a 28)<br>Potencial consciência da ilicitude (art. 21)<br>Exigibilidade de conduta diversa (art. 22)</td></tr>
+</table></div>
+<p><strong>Tipo penal</strong> (também chamado tipo legal, tipo de injusto ou tipo de ilícito, conforme a perspectiva) é o modelo abstrato de conduta proibida descrito na norma penal incriminadora.</p>
+</section>
+
+<section id="fatotipico">
+<h2>16. Fato típico: conduta, resultado, nexo, tipicidade, dolo e culpa</h2>
+<h3>16.1 Elementos</h3>
+<ul>
+<li><strong>Conduta:</strong> comportamento humano voluntário, comissivo ou omissivo, doloso ou culposo.</li>
+<li><strong>Resultado:</strong> o <em>naturalístico</em> (modificação no mundo exterior) só é exigido nos crimes materiais. Os crimes formais e os de mera conduta dispensam resultado naturalístico. Todo crime tem, porém, resultado <em>jurídico/normativo</em> (lesão ou perigo ao bem jurídico).</li>
+<li><strong>Nexo causal:</strong> vínculo entre conduta e resultado naturalístico.</li>
+<li><strong>Tipicidade:</strong> <em>formal</em> (adequação do fato ao tipo) e <em>material</em> (lesão ou perigo relevante ao bem jurídico, campo do princípio da insignificância).</li>
+</ul>
+<h3>16.2 Nexo de causalidade (art. 13)</h3>
+<div class="law"><span class="ref">CP, art. 13, caput e § 1º</span>O resultado, de que depende a existência do crime, somente é imputável a quem lhe deu causa. Considera-se causa a ação ou omissão sem a qual o resultado não teria ocorrido.<br>§ 1º A superveniência de causa relativamente independente exclui a imputação quando, por si só, produziu o resultado; os fatos anteriores, entretanto, imputam-se a quem os praticou.</div>
+<ul>
+<li>O CP adota a <strong>teoria da equivalência dos antecedentes</strong> (<em>conditio sine qua non</em>), com o "processo hipotético de eliminação" de Thyrén.</li>
+<li>Para evitar o regresso ao infinito (o fabricante da arma seria "causa" do homicídio), exige-se <strong>dolo ou culpa</strong>, a chamada causalidade psíquica. Parte da doutrina acrescenta os filtros da <strong>imputação objetiva</strong>: criação de risco proibido e realização desse risco no resultado.</li>
+<li><strong>§ 1º · exemplo clássico:</strong> a vítima de disparo é levada ao hospital e morre no incêndio ou no desabamento do prédio. O autor responde apenas pelos atos praticados (tentativa, se agiu com dolo de matar).</li>
+</ul>
+<h3>16.3 Dolo e culpa (art. 18)</h3>
+<div class="law"><span class="ref">CP, art. 18</span>Diz-se o crime: I – doloso, quando o agente quis o resultado ou assumiu o risco de produzi-lo; II – culposo, quando o agente deu causa ao resultado por imprudência, negligência ou imperícia.<br>Parágrafo único. Salvo os casos expressos em lei, ninguém pode ser punido por fato previsto como crime, senão quando o pratica dolosamente.</div>
+<ul>
+<li><strong>Dolo direto:</strong> o agente quer o resultado (teoria da vontade).</li>
+<li><strong>Dolo eventual:</strong> o agente prevê o resultado e assume o risco de produzi-lo, com indiferença (teoria do assentimento ou consentimento).</li>
+<li><strong>Culpa consciente:</strong> o agente prevê o resultado, mas acredita sinceramente que ele não ocorrerá.</li>
+<li><strong>Culpa inconsciente:</strong> o resultado era previsível, mas o agente não o previu.</li>
+<li><strong>Excepcionalidade do crime culposo:</strong> só há crime culposo quando a lei o prevê expressamente (art. 18, parágrafo único).</li>
+<li><strong>Crime preterdoloso e agravação pelo resultado (art. 19):</strong> o resultado que agrava a pena só é imputado a quem o causou ao menos culposamente.</li>
+</ul>
+<div class="caso"><span class="t">Caso real · Boate Kiss (Santa Maria/RS, 27/01/2013, 242 mortos)</span>O debate central foi <strong>dolo eventual × culpa consciente</strong>. No <strong>REsp 1.790.039/RS (6ª Turma, 18/06/2019)</strong>, o STJ restabeleceu a pronúncia dos quatro réus por homicídio com dolo eventual, por haver indícios de que assumiram o risco (fogos de artifício em recinto fechado, espuma inflamável, superlotação). O STJ não "declarou" o dolo: remeteu a questão ao Tribunal do Júri, que condenou os réus em dezembro de 2021. O processo teve anulação pelo TJRS (mantida pelo STJ) e restabelecimento das condenações pelo STF (RE 1.486.671, 2024/2025). Em setembro de 2026, a discussão sobre as penas estava pendente no STJ.</div>
+<div class="juris"><span class="t">Jurisprudência · embriaguez ao volante (STF, HC 107.801, 1ª Turma, 06/09/2011)</span>O STF desclassificou para homicídio culposo de trânsito uma imputação de homicídio com dolo eventual baseada apenas na embriaguez do motorista. Pela teoria da <em>actio libera in causa</em>, a embriaguez só justifica o dolo quando preordenada ou quando há prova de que o agente assumiu o risco de matar. Não se presume o dolo eventual pela simples embriaguez. O tema é casuístico: a jurisprudência analisa as circunstâncias concretas (velocidade, "racha", conduta anterior).</div>
+</section>
+
+<section id="omissao">
+<h2>17. Ação e omissão</h2>
+<p>Quando a norma <strong>proíbe</strong> um comportamento ("não mate"), o tipo é <strong>comissivo</strong> e se viola por ação. Quando a norma <strong>manda agir</strong> ("preste socorro"), o tipo é <strong>omissivo</strong> e se viola por inação.</p>
+<h3>17.1 Omissão própria (pura)</h3>
+<p>A omissão está descrita no próprio tipo, e o crime se consuma com a simples inação, independentemente de resultado.</p>
+<ul>
+<li>Exemplos: <strong>omissão de socorro (art. 135)</strong> e <strong>omissão de notificação de doença (art. 269)</strong>.</li>
+<li>A <strong>prevaricação (art. 319)</strong>, citada nas aulas, é tipo misto: tem modalidades omissivas ("retardar ou deixar de praticar") e uma comissiva ("praticá-lo contra disposição expressa de lei").</li>
+<li>A <strong>Lei de Tortura</strong> (Lei 9.455/1997, art. 1º, § 2º) prevê como crime próprio a omissão de quem tinha o dever de evitar ou apurar a tortura.</li>
+</ul>
+<h3>17.2 Omissão imprópria (impura, ou crime comissivo por omissão)</h3>
+<p>O agente responde pelo <strong>resultado</strong> de um tipo comissivo (por exemplo, homicídio) porque, sendo <strong>garantidor</strong>, devia e podia agir para evitá-lo.</p>
+<div class="law"><span class="ref">CP, art. 13, § 2º</span>A omissão é penalmente relevante quando o omitente devia e podia agir para evitar o resultado. O dever de agir incumbe a quem: a) tenha por lei obrigação de cuidado, proteção ou vigilância; b) de outra forma, assumiu a responsabilidade de impedir o resultado; c) com seu comportamento anterior, criou o risco da ocorrência do resultado.</div>
+<div class="tw"><table>
+<tr><th>Alínea</th><th>Fonte do dever</th><th>Exemplos</th></tr>
+<tr><td>a</td><td>Dever legal</td><td>Pais em relação aos filhos (poder familiar), tutor, curador, policiais e bombeiros no exercício da função.</td></tr>
+<tr><td>b</td><td>Assunção voluntária da responsabilidade (contrato ou fato)</td><td>Babá, salva-vidas, guia de alpinismo, enfermeira contratada.</td></tr>
+<tr><td>c</td><td>Ingerência (criação do risco)</td><td>Quem ateia fogo e não impede o incêndio; quem empurra alguém que não sabe nadar na piscina.</td></tr>
+</table></div>
+<div class="alerta"><span class="t">Correção às anotações</span>A alínea "b" não se refere a "relações de emprego" em geral, mas à <strong>assunção voluntária</strong> do dever de evitar o resultado (que pode ou não decorrer de contrato de trabalho). Também não basta o dever: é preciso o <strong>poder</strong> de agir, ou seja, a possibilidade física real de evitar o resultado.</div>
+<div class="caso"><span class="t">Caso real · Henry Borel (Rio de Janeiro, 2021)</span>A mãe da criança foi denunciada, ao lado do padrasto, pela morte do filho de 4 anos. Quanto a ela, a acusação se apoiou na posição de <strong>garantidora</strong> (art. 13, § 2º, "a"), porque teria se omitido diante das agressões. Em <strong>junho de 2026</strong>, o júri condenou o padrasto por homicídio qualificado, tortura e coação (43 anos, 9 meses e 20 dias). Em relação à mãe, desclassificou a imputação de homicídio doloso para culposo e a condenou por omissão quanto à tortura. O Ministério Público anunciou recurso.<br><em>Para o estudo:</em> o caso mostra a diferença entre responder pelo <strong>resultado</strong> como garantidor (omissão imprópria) e responder por uma <strong>omissão tipificada</strong> em si (omissão própria), além do debate sobre dolo e culpa na omissão. <span class="small">(Decisão ainda sujeita a recurso.)</span></div>
+</section>
+
+<section id="iter">
+<h2>18. <em>Iter criminis</em>, tentativa e institutos correlatos (arts. 14 a 17 e 19)</h2>
+<p><strong>Fases:</strong> cogitação → preparação → execução → consumação (→ exaurimento). Cogitação e atos preparatórios, em regra, não são puníveis. A punição começa com o início da execução, salvo quando a lei tipifica autonomamente um ato preparatório (por exemplo, a associação criminosa, art. 288).</p>
+<ul>
+<li><strong>Consumação (art. 14, I):</strong> quando se reúnem todos os elementos da definição legal.</li>
+<li><strong>Tentativa (art. 14, II e parágrafo único):</strong> iniciada a execução, o crime não se consuma por circunstâncias alheias à vontade do agente. Salvo disposição em contrário, a pena é a do consumado diminuída de <strong>1/3 a 2/3</strong>, e a redução é maior quanto mais distante o agente ficou da consumação. Classificações: <em>perfeita</em> (acabada) × <em>imperfeita</em> (inacabada); <em>branca</em> (a vítima não é atingida) × <em>cruenta</em> (a vítima é ferida).</li>
+<li><strong>Desistência voluntária (art. 15, 1ª parte):</strong> o agente interrompe voluntariamente a execução e responde só pelos atos já praticados.</li>
+<li><strong>Arrependimento eficaz (art. 15, 2ª parte):</strong> esgotada a execução, o agente impede voluntariamente o resultado e responde pelos atos praticados.</li>
+<li><strong>Arrependimento posterior (art. 16):</strong> nos crimes sem violência ou grave ameaça à pessoa, reparado o dano ou restituída a coisa, por ato voluntário, até o recebimento da denúncia ou queixa, a pena é reduzida de 1/3 a 2/3.</li>
+<li><strong>Crime impossível (art. 17):</strong> não se pune a tentativa quando, por ineficácia absoluta do meio ou absoluta impropriedade do objeto, é impossível consumar-se o crime.</li>
+<li><strong>Agravação pelo resultado (art. 19):</strong> exige ao menos culpa quanto ao resultado agravador.</li>
+</ul>
+<div class="juris"><span class="t">Súmulas importantes</span>
+<ul>
+<li><strong>Súmula 567 do STJ:</strong> "Sistema de vigilância realizado por monitoramento eletrônico ou por existência de segurança no interior de estabelecimento comercial, por si só, não torna impossível a configuração do crime de furto."</li>
+<li><strong>Súmula 582 do STJ:</strong> "Consuma-se o crime de roubo com a inversão da posse do bem mediante emprego de violência ou grave ameaça, ainda que por breve tempo e em seguida à perseguição imediata ao agente e recuperação da coisa roubada, sendo prescindível a posse mansa e pacífica ou desvigiada."</li>
+<li><strong>Súmula 610 do STF:</strong> "Há crime de latrocínio, quando o homicídio se consuma, ainda que não realize o agente a subtração de bens da vítima."</li>
+</ul></div>
+</section>
+
+<section id="ilicitude">
+<h2>19. Ilicitude (antijuridicidade)</h2>
+<div class="law"><span class="ref">CP, art. 23</span>Não há crime quando o agente pratica o fato: I – em estado de necessidade; II – em legítima defesa; III – em estrito cumprimento de dever legal ou no exercício regular de direito.<br>Parágrafo único. O agente, em qualquer das hipóteses deste artigo, responderá pelo excesso doloso ou culposo.</div>
+<ul>
+<li><strong>Estado de necessidade (art. 24):</strong> salvar de perigo atual, que o agente não provocou por sua vontade nem podia de outro modo evitar, direito próprio ou alheio, cujo sacrifício, nas circunstâncias, não era razoável exigir-se. Não pode alegá-lo quem tinha o dever legal de enfrentar o perigo (§ 1º, por exemplo o bombeiro). Se era razoável exigir o sacrifício, a pena pode ser reduzida de 1/3 a 2/3 (§ 2º). O CP adota a <strong>teoria unitária</strong>, em que o estado de necessidade sempre exclui a ilicitude. O Código Penal Militar adota a <strong>diferenciadora</strong>, que distingue o estado de necessidade justificante do exculpante.</li>
+<li><strong>Legítima defesa (art. 25):</strong> repelir <strong>injusta agressão, atual ou iminente</strong>, a direito seu ou de outrem, usando <strong>moderadamente</strong> dos <strong>meios necessários</strong>. O parágrafo único, incluído pela Lei 13.964/2019, considera em legítima defesa o agente de segurança pública que repele agressão ou risco de agressão à vítima mantida refém durante a prática de crimes.</li>
+<li><strong>Estrito cumprimento do dever legal:</strong> atuação nos limites de um dever imposto por lei, em regra por agente público, como o policial que cumpre mandado de prisão.</li>
+<li><strong>Exercício regular de direito:</strong> conduta autorizada pelo ordenamento, como as lesões desportivas dentro das regras, as intervenções médicas consentidas e a prisão em flagrante por particular (CPP, art. 301).</li>
+<li><strong>Consentimento do ofendido (causa supralegal):</strong> exclui a ilicitude quando o bem é disponível, o ofendido é capaz e o consentimento é anterior ou simultâneo à conduta. Em alguns tipos, o dissenso da vítima é elementar, e aí o consentimento exclui a própria tipicidade.</li>
+</ul>
+<div class="juris"><span class="t">Jurisprudência · legítima defesa da honra (STF, ADPF 779)</span>Em <strong>01/08/2023</strong>, o STF declarou, por unanimidade, inconstitucional a tese da "legítima defesa da honra", por contrariar a dignidade da pessoa humana, a proteção à vida e a igualdade de gênero. A defesa, a acusação, a autoridade policial e o juízo ficam proibidos de usá-la, direta ou indiretamente, em qualquer fase do processo penal e no júri, sob pena de nulidade.</div>
+</section>
+
+<section id="culpabilidade">
+<h2>20. Culpabilidade</h2>
+<p>É o juízo de reprovação que recai sobre o autor de um fato típico e ilícito. Pela teoria normativa pura, adotada pela doutrina majoritária, tem três elementos:</p>
+<h3>20.1 Imputabilidade (arts. 26 a 28)</h3>
+<ul>
+<li><strong>Art. 26, <em>caput</em>:</strong> é isento de pena quem, por doença mental ou desenvolvimento mental incompleto ou retardado, era, ao tempo da ação ou omissão, <strong>inteiramente incapaz</strong> de entender o caráter ilícito do fato ou de determinar-se de acordo com esse entendimento. É o critério <strong>biopsicológico</strong>. O inimputável recebe medida de segurança (absolvição imprópria).</li>
+<li><strong>Art. 26, parágrafo único (semi-imputabilidade):</strong> se a capacidade era apenas parcial, a pena é reduzida de 1/3 a 2/3.</li>
+<li><strong>Art. 27:</strong> os menores de 18 anos são penalmente inimputáveis, pelo critério <strong>biológico</strong> (ver também CF, art. 228), e ficam sujeitos ao ECA.</li>
+<li><strong>Art. 28:</strong> emoção e paixão não excluem a imputabilidade, nem a embriaguez voluntária ou culposa. Só a embriaguez <strong>completa, proveniente de caso fortuito ou força maior</strong>, isenta de pena (§ 1º). Se incompleta, reduz a pena de 1/3 a 2/3 (§ 2º). A embriaguez voluntária é tratada pela <em>actio libera in causa</em>.</li>
+</ul>
+<h3>20.2 Potencial consciência da ilicitude (art. 21)</h3>
+<p>O desconhecimento da lei é inescusável. O <strong>erro sobre a ilicitude do fato</strong> (erro de proibição), se inevitável, isenta de pena; se evitável, reduz a pena de 1/6 a 1/3.</p>
+<h3>20.3 Exigibilidade de conduta diversa (art. 22)</h3>
+<p>Se o fato é cometido sob <strong>coação moral irresistível</strong> ou em estrita obediência a ordem, <strong>não manifestamente ilegal</strong>, de superior hierárquico, só é punível o autor da coação ou da ordem. A doutrina admite também causas supralegais de inexigibilidade.</p>
+<div class="alerta"><span class="t">Correção às anotações</span>A imputabilidade está nos <strong>arts. 26, 27 e 28</strong>, e não no art. 23, que trata das excludentes de ilicitude. O art. 24 (estado de necessidade), pela teoria unitária do CP, exclui a <em>ilicitude</em>, e não a culpabilidade.</div>
+</section>
+
+<section id="erro">
+<h2>21. Teoria do erro</h2>
+<div class="tw"><table>
+<tr><th>Espécie</th><th>Dispositivo</th><th>Consequência</th></tr>
+<tr><td><strong>Erro de tipo essencial</strong> (sobre elementar do tipo)</td><td>Art. 20, <em>caput</em></td><td>Sempre exclui o dolo. Se <em>inevitável</em>, exclui também a culpa. Se <em>evitável</em>, permite punição por crime culposo, se previsto em lei. Exemplo: o caçador atira no que supõe ser um animal e atinge outro caçador.</td></tr>
+<tr><td><strong>Descriminantes putativas</strong></td><td>Art. 20, § 1º</td><td>Quem, por erro plenamente justificado pelas circunstâncias, supõe situação de fato que tornaria a ação legítima é isento de pena. Se o erro deriva de culpa, responde por crime culposo, se previsto.</td></tr>
+<tr><td><strong>Erro determinado por terceiro</strong></td><td>Art. 20, § 2º</td><td>Responde pelo crime o terceiro que determina o erro.</td></tr>
+<tr><td><strong>Erro de proibição</strong> (sobre a ilicitude)</td><td>Art. 21</td><td>Inevitável: isenta de pena (exclui a culpabilidade). Evitável: reduz de 1/6 a 1/3.</td></tr>
+<tr><td><strong>Erro sobre a pessoa</strong> (<em>error in persona</em>)</td><td>Art. 20, § 3º</td><td>Acidental, não exclui o dolo. Consideram-se as qualidades da vítima <em>visada</em>, não as da atingida.</td></tr>
+<tr><td><strong>Erro na execução</strong> (<em>aberratio ictus</em>)</td><td>Art. 73</td><td>Por acidente ou erro no uso dos meios, atinge-se pessoa diversa. Responde como se tivesse atingido a visada. Se atingir as duas, aplica-se o concurso formal (art. 70).</td></tr>
+<tr><td><strong>Resultado diverso do pretendido</strong> (<em>aberratio criminis</em>)</td><td>Art. 74</td><td>Responde pelo resultado produzido a título de culpa, se previsto como crime culposo. Se ocorrer também o resultado pretendido, aplica-se o art. 70.</td></tr>
+</table></div>
+</section>
+
+<section id="concurso">
+<h2>22. Concurso de pessoas (arts. 29 a 31)</h2>
+<ul>
+<li><strong>Art. 29:</strong> quem, de qualquer modo, concorre para o crime incide nas penas a ele cominadas, na medida de sua culpabilidade. É a <strong>teoria monista</strong> (unitária), com exceções pluralistas previstas na Parte Especial (por exemplo, corrupção ativa e passiva, arts. 333 e 317).</li>
+<li><strong>§ 1º:</strong> participação de menor importância, com redução de 1/6 a 1/3.</li>
+<li><strong>§ 2º:</strong> cooperação dolosamente distinta. Quem quis participar de crime menos grave responde pela pena deste, aumentada até a metade se o resultado mais grave era previsível.</li>
+<li><strong>Art. 30:</strong> não se comunicam as circunstâncias e as condições de caráter pessoal, salvo quando elementares do crime (por exemplo, a condição de funcionário público no peculato comunica-se ao particular que a conhece).</li>
+<li><strong>Art. 31:</strong> o ajuste, a determinação, a instigação e o auxílio não são puníveis se o crime não chega, pelo menos, a ser tentado.</li>
+</ul>
+</section>
+
+<div class="part">Parte IV · Estudo</div>
+
+<section id="correcoes">
+<h2>23. Quadro de correções às anotações</h2>
+<p class="small">Pontos das anotações de aula que não conferem com a lei ou com a jurisprudência. Tudo foi conferido nos textos legais do Planalto e nas decisões citadas.</p>
+<div class="tw"><table>
+<tr><th>Nas anotações</th><th>Correto</th></tr>
+<tr><td>CPP: "DL 3680/41"</td><td>Decreto-Lei <strong>3.689</strong>/1941</td></tr>
+<tr><td>ECA: "8.039/90"</td><td>Lei <strong>8.069</strong>/1990</td></tr>
+<tr><td>"Todas as contravenções estão no DL 3.688/41"</td><td>A maioria está, mas não todas. Exemplo: jogo do bicho (DL 6.259/1944, art. 58).</td></tr>
+<tr><td>Criminalização da homofobia seria analogia <em>in malam partem</em>, "sem cabimento"</td><td>É uma posição doutrinária. O STF (ADO 26/MI 4.733) entendeu tratar-se de interpretação conforme do conceito de racismo. Em prova, apresente as duas posições.</td></tr>
+<tr><td>Subsidiariedade "só quando o CP expressamente determinar"</td><td>Pode ser expressa ou tácita.</td></tr>
+<tr><td>Norma penal temporária: "não temos exemplo no Brasil"</td><td>Lei Geral da Copa (Lei 12.663/2012, art. 36: tipos penais vigentes até 31/12/2014).</td></tr>
+<tr><td>Combinação de leis: "faz-se uma média da pena"</td><td>A combinação é vedada, e aplica-se integralmente a lei mais favorável (Súmula 501 do STJ; STF, RE 600.817).</td></tr>
+<tr><td>Tempo do crime tem exceção para a prescrição</td><td>O termo inicial da prescrição tem regra própria (art. 111: em regra, a data da consumação). O art. 4º serve para definir a lei aplicável e a imputabilidade.</td></tr>
+<tr><td>Nacionalidade ativa: "art. 7º, II, d"</td><td>Art. 7º, II, <strong>b</strong> (o inciso II não tem alínea "d")</td></tr>
+<tr><td>Pavilhão/bandeira: "art. 7º, II"</td><td>Art. 7º, II, <strong>c</strong></td></tr>
+<tr><td>Incondicionada: "sempre que a vida do presidente for atacada"</td><td>Abrange <strong>todas</strong> as hipóteses do art. 7º, I (alíneas "a" a "d").</td></tr>
+<tr><td>Cônsul tem "total imunidade processual"</td><td>A imunidade de jurisdição é só funcional (Convenção de 1963, art. 43), e a inviolabilidade pessoal é limitada (art. 41).</td></tr>
+<tr><td>Art. 142 do CP como "inviolabilidade"</td><td>É exclusão do crime de injúria e difamação (a chamada imunidade judiciária). Não alcança a calúnia.</td></tr>
+<tr><td>MP: "LOMP Lei 8653/93"</td><td>Lei <strong>8.625</strong>/1993 (LONMP), art. 41, V; para o MPU, LC 75/1993.</td></tr>
+<tr><td>Art. 8º: "territorialidade e extraterritorialidade incondicionada, previsto no art. 7º, II"</td><td>O art. 8º trata da <strong>pena cumprida no estrangeiro</strong> (atenuação ou cômputo). A extraterritorialidade incondicionada é o art. 7º, I e § 1º.</td></tr>
+<tr><td>Imputabilidade: "art. 23, 27, 28"</td><td>Arts. <strong>26</strong>, 27 e 28</td></tr>
+<tr><td>Exigibilidade de conduta diversa: "art. 22, 24"</td><td>Art. 22. O art. 24 (estado de necessidade) exclui a ilicitude pela teoria unitária do CP.</td></tr>
+<tr><td>Omissão própria: exemplo "art. 319"</td><td>Art. 135 é o exemplo puro. O art. 319 é misto (tem modalidades omissivas e uma comissiva).</td></tr>
+<tr><td>Art. 13, § 2º, "b": "relações de emprego"</td><td>Assunção voluntária da responsabilidade de impedir o resultado (babá, salva-vidas etc.).</td></tr>
+<tr><td>Irmãos Naves: "documentário"</td><td>O caso inspirou o filme de ficção <em>O Caso dos Irmãos Naves</em> (1967), de Luís Sérgio Person.</td></tr>
+</table></div>
+</section>
+
+<section id="revisao">
+<h2>24. Revisão para prova: pontos que mais caem</h2>
+<ol>
+<li><strong>Tempo × lugar:</strong> atividade (art. 4º) × ubiquidade (art. 6º). Mnemônico LUTA.</li>
+<li><strong><em>Abolitio criminis</em></strong> apaga os efeitos penais, mas não os civis. Não confundir com continuidade normativo-típica.</li>
+<li><strong>Lei mais benéfica</strong> retroage mesmo após o trânsito em julgado, e quem a aplica é o juízo da execução (Súmula 611 do STF).</li>
+<li><strong>Combinação de leis</strong> é vedada (Súmula 501 do STJ; STF, RE 600.817).</li>
+<li><strong>Súmula 711 do STF:</strong> a lei mais grave se aplica ao crime permanente ou continuado se entrou em vigor antes de cessada a permanência ou a continuidade.</li>
+<li><strong>Leis excepcionais e temporárias</strong> são ultra-ativas (art. 3º). Exemplo: Lei Geral da Copa.</li>
+<li><strong>Norma penal em branco heterogênea:</strong> a alteração benéfica do complemento retroage (lança-perfume, HC 94.397).</li>
+<li><strong>Embarcação/aeronave pública brasileira</strong> é território nacional onde quer que esteja. A privada, só em alto-mar ou no espaço aéreo correspondente.</li>
+<li><strong>Extraterritorialidade incondicionada</strong> (art. 7º, I) × <strong>condicionada</strong> (II, com as cinco condições do § 2º) × <strong>hipercondicionada</strong> (§ 3º).</li>
+<li><strong>Brasileiro nato nunca é extraditado</strong>, mas pode cumprir no Brasil pena imposta no exterior (transferência da execução, caso Robinho).</li>
+<li><strong>Vereador:</strong> só imunidade material, na circunscrição do Município e com pertinência ao mandato (Tema 469).</li>
+<li><strong>Omissão imprópria:</strong> exige dever <em>e</em> poder de agir (art. 13, § 2º, alíneas "a", "b" e "c").</li>
+<li><strong>Dolo eventual × culpa consciente:</strong> nos dois há previsão do resultado. A diferença é a atitude do agente: assume o risco, com indiferença, ou confia que o resultado não ocorrerá.</li>
+<li><strong>Erro de tipo</strong> exclui o dolo. <strong>Erro de proibição</strong> atinge a culpabilidade.</li>
+<li><strong>Legítima defesa da honra</strong> é tese inconstitucional (ADPF 779).</li>
+</ol>
+</section>
+
+<section id="referencias">
+<h2>Referências</h2>
+<h3>Legislação (texto oficial · Planalto)</h3>
+<ul class="ref-list">
+<li>Constituição da República de 1988 (arts. 5º, 12, 22, 27, 29, 53, 102 e 105): <a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm">planalto.gov.br</a></li>
+<li>Código Penal · Decreto-Lei 2.848/1940: <a href="https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm">planalto.gov.br</a></li>
+<li>Código de Processo Penal · Decreto-Lei 3.689/1941: <a href="https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689compilado.htm">planalto.gov.br</a></li>
+<li>Lei de Introdução ao CP · Decreto-Lei 3.914/1941: <a href="https://www.planalto.gov.br/ccivil_03/decreto-lei/del3914.htm">planalto.gov.br</a></li>
+<li>Lei de Migração · Lei 13.445/2017: <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13445.htm">planalto.gov.br</a></li>
+<li>Lei Geral da Copa · Lei 12.663/2012 (art. 36): <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12663.htm">planalto.gov.br</a></li>
+<li>Emenda Constitucional 131/2023: <a href="https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc131.htm">planalto.gov.br</a></li>
+<li>Convenção de Viena sobre Relações Diplomáticas · Decreto 56.435/1965: <a href="https://www.planalto.gov.br/ccivil_03/decreto/1950-1969/d56435.htm">planalto.gov.br</a></li>
+<li>Convenção de Viena sobre Relações Consulares · Decreto 61.078/1967: <a href="https://www.planalto.gov.br/ccivil_03/decreto/1950-1969/d61078.htm">planalto.gov.br</a></li>
+<li>Lei 8.617/1993 (mar territorial); Lei 7.565/1986 (Código Brasileiro de Aeronáutica); Lei 8.625/1993 (LONMP); Lei 8.906/1994 (EAOAB); Lei 9.455/1997 (Tortura); Lei 11.106/2005; Lei 12.015/2009; Lei 12.737/2012; Lei 14.245/2021; Lei 14.532/2023: consultar em <a href="https://www4.planalto.gov.br/legislacao/">planalto.gov.br/legislacao</a>.</li>
+</ul>
+<h3>Jurisprudência</h3>
+<ul class="ref-list">
+<li>Súmulas do STF (245, 421, 610, 611, 711) e do STJ (17, 501, 513, 567, 582, 589, 599): <a href="https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp">portal.stf.jus.br</a> · <a href="https://scon.stj.jus.br/SCON/sumstj/">scon.stj.jus.br</a></li>
+<li>STF, HC 84.412/SP (insignificância): <a href="https://noticias.stf.jus.br/postsnoticias/supremo-aplica-principio-da-insignificancia-penal-em-liminar-de-hc/">notícia STF</a></li>
+<li>STF, HC 94.397/BA (lança-perfume): <a href="https://www.migalhas.com.br/quentes/103460/2--turma-do-stf-extingue-punibilidade-de-acusado-de-comercializar-lanca-perfume-em-1998">Migalhas</a></li>
+<li>STF, RE 600.817 (Tema 169, combinação de leis): <a href="https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=2684368&numeroProcesso=600817&classeProcesso=RE&numeroTema=169">portal STF</a> · <a href="https://www.editoraforum.com.br/noticias/stf-nega-combinaaao-de-leis-para-reduzir-pena-de-trafico/">Editora Fórum</a></li>
+<li>STF, ADO 26 e MI 4.733 (homotransfobia): <a href="https://noticias.stf.jus.br/postsnoticias/stf-enquadra-homofobia-e-transfobia-como-crimes-de-racismo-ao-reconhecer-omissao-legislativa/">notícia STF</a></li>
+<li>STF, RE 635.659 (Tema 506): <a href="https://portal.stf.jus.br/">portal.stf.jus.br</a></li>
+<li>STF, HC 171.118 e Ext 1.223 (<em>ne bis in idem</em> internacional), citados no acórdão do STJ na HDE 7.986</li>
+<li>STJ, HDE 7.986/EX (caso Robinho): <a href="https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2024/20032024-STJ-valida-sentenca-da-Italia-que-condenou-Robinho-por-estupro-e-determina-imediato-inicio-da-execucao-da-pena.aspx">notícia STJ</a></li>
+<li>STF, RE 600.063 (Tema 469, vereadores): <a href="https://informativos.trilhante.com.br/temas-stf/tema-469-stf">Trilhante</a></li>
+<li>STF, AP 1.044 (Daniel Silveira): <a href="https://agenciabrasil.ebc.com.br/justica/noticia/2022-04/supremo-condena-deputado-federal-daniel-silveira">Agência Brasil</a></li>
+<li>STF, AP 937 QO (foro, 2018): <a href="https://www.migalhas.com.br/quentes/279477/stf-limita-foro-privilegiado-a-crimes-durante-e-em-funcao-do-cargo">Migalhas</a> · STF, HC 232.627/Inq 4.787 (foro, 2025): <a href="https://www.migalhas.com.br/quentes/426078/stf-encerra-julgamento-e-mantem-foro-privilegiado-apos-saida-de-cargo">Migalhas</a></li>
+<li>STF, HC 154.248 (injúria racial): <a href="https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=475646">notícia STF</a></li>
+<li>STF, Ext 1.085 (Battisti): <a href="https://www.migalhas.com.br/quentes/97545/stf-autoriza-extradicao-e-diz-que-presidente-da-republica-decide-sobre-entrega-de-battisti">Migalhas</a></li>
+<li>STF, MS 33.864 e Ext 1.462 (Cláudia Hoerig): <a href="https://www.conjur.com.br/2016-set-22/stf-publica-acordao-declarou-perda-nacionalidade-brasileira/">Conjur</a> · <a href="https://agenciabrasil.ebc.com.br/direitos-humanos/noticia/2018-01/brasileira-que-perdeu-nacionalidade-e-extraditada-e-ja-esta-presa">Agência Brasil</a></li>
+<li>STJ, REsp 1.790.039/RS (Boate Kiss): <a href="https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias-antigas/2019/Denunciados-por-mortes-em-incendio-na-boate-Kiss-vao-a-juri-popular.aspx">notícia STJ</a> · STJ, andamento das penas (set/2026): <a href="https://www.stj.jus.br/sites/portalp/Paginas/Comunicacao/Noticias/2026/11092026-Boate-Kiss-volta-a-pauta-do-STJ-entenda-a-discussao-sobre-as-penas-dos-quatro-condenados.aspx">notícia STJ</a></li>
+<li>STF, HC 107.801 (embriaguez ao volante): <a href="https://www.migalhas.com.br/quentes/140878/concedido-hc-para-desclassificar-crime-de-homicidio-em-acidente-de-transito">Migalhas</a></li>
+<li>STF, ADPF 779 (legítima defesa da honra): <a href="https://noticias.stf.jus.br/postsnoticias/tese-da-legitima-defesa-da-honra-e-inconstitucional/">notícia STF</a></li>
+</ul>
+<h3>Casos reais (imprensa)</h3>
+<ul class="ref-list">
+<li>Diplomata iraniano, Brasília, 2012: <a href="https://www.em.com.br/app/noticia/nacional/2012/04/17/interna_nacional,289216/diplomata-do-ira-e-acusado-de-abusar-de-criancas-em-clube-de-brasilia.shtml">Estado de Minas</a> · <a href="https://www.terra.com.br/noticias/mundo/ira-expulsa-diplomata-acusado-de-abusos-sexuais-no-brasil,2f6865fbf1bda310VgnCLD200000bbcceb0aRCRD.html">Terra</a></li>
+<li>Caso Henry Borel, júri de 2026: <a href="https://agenciabrasil.ebc.com.br/justica/noticia/2026-06/monique-medeiros-deixa-prisao-mp-vai-recorrer-da-decisao">Agência Brasil</a></li>
+</ul>
+<h3>Leituras de apoio (doutrina)</h3>
+<p class="small">Manuais consagrados de Parte Geral, para aprofundamento (consulte a edição mais recente disponível): Cezar Roberto Bitencourt, <em>Tratado de Direito Penal: Parte Geral</em> (Saraiva); Rogério Greco, <em>Curso de Direito Penal: Parte Geral</em>; Cleber Masson, <em>Direito Penal: Parte Geral</em>; Guilherme de Souza Nucci, <em>Manual de Direito Penal</em>; Nelson Hungria, <em>Comentários ao Código Penal</em> (Forense). As classificações doutrinárias deste material (por exemplo, dos princípios do art. 7º e das normas penais em branco) seguem a nomenclatura usual desses manuais. Onde há divergência relevante, ela foi indicada no texto.</p>
+</section>
+
+</main>
+</div>
+<footer>
+Material de estudo elaborado a partir de anotações de aula (Teoria do Crime, 2º semestre de 2026). Legislação e jurisprudência conferidas em 23/09/2026. Antes de provas e concursos, confira sempre o texto atualizado da lei no Planalto e eventuais mudanças na jurisprudência, em especial nos casos com processos ainda em andamento (Boate Kiss e Henry Borel).
+</footer>
+</body>
+</html>
