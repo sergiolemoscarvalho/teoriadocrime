@@ -152,8 +152,8 @@
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
                     <div>
                         <p class="text-xs uppercase tracking-wider font-semibold text-slate-500">Casos Reais Analisados</p>
-                        <p class="text-3xl font-extrabold text-slate-900 mt-1">5 Casos</p>
-                        <p class="text-xs text-amber-600 font-medium mt-1">Boate Kiss, Bateau Mouche, etc.</p>
+                        <p class="text-3xl font-extrabold text-slate-900 mt-1">4 Casos</p>
+                        <p class="text-xs text-amber-600 font-medium mt-1">Boate Kiss, Bateau Mouche, lança-perfume e 1 hipotético</p>
                     </div>
                     <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-800 text-xl font-bold">
                         📂
@@ -177,7 +177,7 @@
                 <!-- Chart 1: Content Distribution -->
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
                     <h3 class="font-bold text-slate-900 text-base mb-2 flex items-center gap-2">
-                        <span>📊</span> Incidência Temática em Concursos & OAB
+                        <span>📊</span> Distribuição das 25 Questões do Simulado por Tema
                     </h3>
                     <div class="chart-container">
                         <canvas id="topicsChart"></canvas>
@@ -201,7 +201,7 @@
                     <span class="bg-rose-500/20 text-rose-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-rose-500/30">Módulo de Prática Avançada</span>
                     <h3 class="serif-title text-xl font-bold text-rose-100">Pronto para testar seus conhecimentos em casos concretos?</h3>
                     <p class="text-sm text-slate-300 max-w-2xl leading-relaxed">
-                        Inicie o simulado interativo com 25 questões inéditas focadas na Teoria da Norma Penal, Extraterritorialidade, Erro de Tipo, Nexo Causal e Culpabilidade.
+                        Inicie o simulado interativo com 25 questões focadas na Teoria da Norma Penal, Extraterritorialidade, Erro de Tipo, Nexo Causal e Culpabilidade.
                     </p>
                 </div>
                 <button onclick="switchTab('simulado')" class="bg-rose-700 hover:bg-rose-600 text-white font-bold px-6 py-3 rounded-xl transition text-sm shadow-md whitespace-nowrap">
@@ -248,7 +248,7 @@
                         </div>
                         <h3 class="font-bold text-slate-900 text-lg">Princípios da Legalidade e Anterioridade</h3>
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                            <em>"Não há crime sem lei anterior que o defina. Não há pena sem prévia cominação legal."</em> A lei penal deve ser <strong>prévia, escrita, estrita e certa</strong> (vedada a analogia <em>in pejam</em> e o uso de costumes para incriminar).
+                            <em>"Não há crime sem lei anterior que o defina. Não há pena sem prévia cominação legal."</em> A lei penal deve ser <strong>prévia, escrita, estrita e certa</strong> (vedada a analogia <em>in malam partem</em> e o uso de costumes para incriminar).
                         </p>
                     </div>
 
@@ -294,7 +294,7 @@
                     <h3 class="serif-title font-bold text-lg text-rose-200">Normas Penais em Branco & Conflito Aparente de Normas</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
                         <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
-                            <h4 class="font-bold text-amber-300 text-sm mb-1">Norma Penal em Branco Heterogênea (Em Sentido Stricto)</h4>
+                            <h4 class="font-bold text-amber-300 text-sm mb-1">Norma Penal em Branco Heterogênea (Em Sentido Estrito)</h4>
                             <p class="text-slate-300 leading-relaxed">
                                 O complemento emana de fonte diversa do Poder Legislativo (ex: Portaria da ANVISA que define substâncias entorpecentes na Lei de Drogas - Lei 11.343/06). Se a portaria retira uma substância do rol, opera-se <em>abolitio criminis</em>.
                             </p>
@@ -351,12 +351,12 @@
                                     <td class="p-3 font-bold text-slate-900">Incondicionada<br><span class="text-xs text-rose-700 font-normal">(Art. 7º, I)</span></td>
                                     <td class="p-3 text-slate-700">
                                         a) Contra a vida ou liberdade do Presidente da República;<br>
-                                        b) Contra patrimônio/fé pública da União, Estados, Municípios, Autarquias ou Empresas Públicas;<br>
+                                        b) Contra o patrimônio ou a fé pública da União, do Distrito Federal, de Estado, de Território, de Município, de empresa pública, sociedade de economia mista, autarquia ou fundação instituída pelo Poder Público;<br>
                                         c) Contra a administração pública por quem está a seu serviço;<br>
                                         d) Genocídio praticado por brasileiro ou domiciliado no Brasil.
                                     </td>
                                     <td class="p-3 text-rose-700 font-semibold">
-                                        Aplica-se a lei brasileira <strong>ainda que o agente seja absolvido ou absolvido no estrangeiro</strong>. Não exige qualquer condição!
+                                        Aplica-se a lei brasileira <strong>ainda que o agente seja absolvido ou condenado no estrangeiro</strong> (Art. 7º, § 1º). Não exige qualquer condição!
                                     </td>
                                 </tr>
                                 <tr>
@@ -367,7 +367,7 @@
                                         c) Crimes praticados em aeronaves/embarcações privadas brasileiras no exterior e aí não julgados.
                                     </td>
                                     <td class="p-3 text-slate-700 text-xs">
-                                        Exige cumulativamente: Entrar o agente no território nacional; ser o fato punível também no país onde ocorreu; estar o crime incluído entre os que a lei brasileira autoriza a extradição; não ter sido o agente absolvido no exterior nem ter cumprido a pena lá.
+                                        Exige cumulativamente: Entrar o agente no território nacional; ser o fato punível também no país onde ocorreu; estar o crime incluído entre os que a lei brasileira autoriza a extradição; não ter sido o agente absolvido no exterior nem ter cumprido a pena lá; não ter sido perdoado no estrangeiro nem estar extinta a punibilidade, segundo a lei mais favorável (Art. 7º, § 2º, "a" a "e"). <br><br><strong>§ 3º (hipercondicionada):</strong> crime cometido por estrangeiro contra brasileiro fora do Brasil exige, além dessas condições, que não tenha sido pedida ou tenha sido negada a extradição e que haja requisição do Ministro da Justiça.
                                     </td>
                                 </tr>
                             </tbody>
@@ -439,7 +439,7 @@
                     <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
                         <h4 class="font-bold text-slate-900 text-base">Erro de Tipo vs. Erro de Proibição</h4>
                         <div class="text-xs sm:text-sm text-slate-600 space-y-2">
-                            <p><strong>Erro de Tipo (Art. 20, CP):</strong> O agente erra sobre a realidade fática (*"Acha que está atirando em um urso, mas atira num caçador"*). <strong>Exclui sempre o dolo</strong>, permitindo punição por culpa se prevista em lei.</p>
+                            <p><strong>Erro de Tipo (Art. 20, CP):</strong> O agente erra sobre a realidade fática (*"Acha que está atirando em um urso, mas atira num caçador"*). O erro de tipo <strong>essencial</strong> exclui sempre o dolo: se inevitável, exclui também a culpa; se evitável, permite punição por culpa se prevista em lei. O erro de tipo <strong>acidental</strong> (<em>error in persona</em>, <em>aberratio ictus</em>) não exclui o dolo.</p>
                             <p><strong>Erro de Proibição (Art. 21, CP):</strong> O agente conhece o fato, mas erra sobre a ilicitude da conduta (*"Acha que é permitido importar determinado bem ilícito"*). Se inevitável, isenta de pena; se evitável, reduz a pena.</p>
                         </div>
                     </div>
@@ -510,7 +510,7 @@
                         <em>"Transitada em julgado a sentença condenatória, compete ao juízo das execuções a aplicação de lei mais benigna."</em>
                     </p>
                     <div class="p-3 bg-stone-50 rounded-lg text-xs text-slate-700">
-                        <strong>Impacto Prático:</strong> Se surgir lei penal mais benéfica após o trânsito em julgado, o réu não precisa ingressar com ação rescisória/revisão criminal; o Juiz da Execução Penal aplica de ofício.
+                        <strong>Impacto Prático:</strong> Se surgir lei penal mais benéfica após o trânsito em julgado, o réu não precisa ingressar com revisão criminal; o Juiz da Execução Penal aplica a lei mais benigna, inclusive de ofício (Art. 66, I, da LEP).
                     </div>
                 </div>
 
@@ -518,14 +518,14 @@
                 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 hover:border-rose-800 transition">
                     <div class="flex items-center justify-between">
                         <span class="bg-slate-900 text-amber-200 font-bold text-xs px-2.5 py-1 rounded">Súmula 501 - STJ</span>
-                        <span class="text-xs text-slate-400 font-semibold">Vedação à Lex Tertia</span>
+                        <span class="text-xs text-slate-400 font-semibold">Lei de Drogas / Vedação à Lex Tertia</span>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base">Proibição de Combinação de Leis Penais no Tempo</h3>
+                    <h3 class="font-bold text-slate-900 text-base">Retroatividade da Lei 11.343/06 e Proibição de Combinação de Leis</h3>
                     <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        <em>"É vedada a combinação de leis no tempo para extrair de cada uma delas os dispositivos mais benéficos ao réu, sob pena de o juiz criar uma terceira lei (lex tertia)."</em>
+                        <em>"É cabível a aplicação retroativa da Lei n. 11.343/2006, desde que o resultado da incidência das suas disposições, na íntegra, seja mais favorável ao réu do que o da aplicação da Lei n. 6.368/1976, sendo vedada a combinação de leis."</em>
                     </p>
                     <div class="p-3 bg-stone-50 rounded-lg text-xs text-slate-700">
-                        <strong>Impacto Prático:</strong> O magistrado deve analisar o bloco normativo da lei antiga e da lei nova por inteiro, aplicando o sistema integralmente mais favorável.
+                        <strong>Impacto Prático:</strong> O magistrado deve analisar o bloco normativo da lei antiga e da lei nova por inteiro, aplicando o sistema integralmente mais favorável. A doutrina chama de <em>lex tertia</em> a "terceira lei" que surgiria da combinação vedada.
                     </div>
                 </div>
             </div>
@@ -537,15 +537,15 @@
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <h2 class="serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-2">Seção Exclusiva de Casos Reais da Jurisprudência</h2>
                 <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                    A dogmática penal ganha vida ao ser confrontada com precedentes e tragédias reais apreciadas pelos tribunais superiores do Brasil. Esta seção analisa cinco casos reais emblemáticos, demonstrando a aplicação concreta dos conceitos de Dolo Eventual, Culpa Consciente, Nexo Causal, Território por Extensão e Norma Penal em Branco.
+                    A dogmática penal ganha vida ao ser confrontada com precedentes e tragédias reais apreciadas pelos tribunais superiores do Brasil. Esta seção analisa três casos reais emblemáticos e um caso hipotético de fixação, demonstrando a aplicação concreta dos conceitos de Dolo Eventual, Culpa Consciente, Nexo Causal, Território por Extensão e Norma Penal em Branco.
                 </p>
             </div>
 
             <!-- Real Case 1: Boate Kiss -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 border-l-4 border-l-rose-800">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 1 • STF / STJ</span>
-                    <span class="text-xs font-semibold text-rose-800">Dolo Eventual vs. Culpa Consciente em Homicídio Pluragressivo</span>
+                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 1 • STJ / STF</span>
+                    <span class="text-xs font-semibold text-rose-800">Dolo Eventual vs. Culpa Consciente em Homicídio com Múltiplas Vítimas</span>
                 </div>
                 <h3 class="serif-title text-lg font-bold text-slate-900">O Caso da Boate Kiss (Santa Maria/RS)</h3>
                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -553,15 +553,15 @@
                 </p>
                 <div class="p-4 bg-stone-50 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1">
                     <p class="font-bold text-slate-900">📌 Síntese da Solução Jurídica:</p>
-                    <p>O Superior Tribunal de Justiça e o Supremo Tribunal Federal assentaram que a ciência dos riscos exagerados (superlotação, espulmamento inflamável, uso de fogos de artifício em recinto fechado) ultrapassou a mera imprudência culposa, configurando a anuência com o risco de produzir o resultado mortífero (dolo eventual - Art. 18, I, CP), submetendo os réus ao Tribunal do Júri.</p>
+                    <p>O Superior Tribunal de Justiça restabeleceu a pronúncia por homicídio com dolo eventual (Art. 18, I, CP): diante de elementos como superlotação, espuma inflamável no teto e uso de fogos de artifício em recinto fechado, entendeu haver indícios suficientes de que os réus assumiram o risco do resultado, cabendo ao Tribunal do Júri decidir entre dolo eventual e culpa consciente. Em dezembro de 2021, o Júri condenou os quatro réus (penas de 18 a 22 anos e 6 meses). O TJRS anulou o julgamento por nulidades processuais, e o STJ manteve a anulação; em 2024, o STF restabeleceu as condenações, decisão confirmada por unanimidade pela 2ª Turma em abril de 2025.</p>
                 </div>
             </div>
 
             <!-- Real Case 2: Bateau Mouche -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 border-l-4 border-l-slate-900">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 2 • STF</span>
-                    <span class="text-xs font-semibold text-slate-700">Nexo Causal, Causalidade Múltipla & Culpa Estrita</span>
+                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 2 • TJRJ</span>
+                    <span class="text-xs font-semibold text-slate-700">Nexo Causal & Causalidade Múltipla</span>
                 </div>
                 <h3 class="serif-title text-lg font-bold text-slate-900">O Naufrágio do Bateau Mouche IV (Réveillon no Rio)</h3>
                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
@@ -569,39 +569,39 @@
                 </p>
                 <div class="p-4 bg-stone-50 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1">
                     <p class="font-bold text-slate-900">📌 Síntese da Solução Jurídica:</p>
-                    <p>A condenação fundamentou-se no artigo 13 do Código Penal (Teoria da Equivalência dos Antecedentes). Ficou provado que as reformas irresponsáveis e a superlotação foram causas determinantes diretas que, somadas ao estado do mar, provocaram o resultado fatal, afastando teses de caso fortuito.</p>
+                    <p>Na 1ª instância, os réus foram absolvidos, em contradição com as conclusões do Tribunal Marítimo. Em apelação, o Tribunal de Justiça do Rio de Janeiro condenou os três sócios da empresa proprietária a 4 anos em regime semiaberto. Os sócios, estrangeiros, deixaram o Brasil e não cumpriram a pena. <strong>Leitura dogmática:</strong> pela teoria da equivalência dos antecedentes (Art. 13, CP), as reformas irregulares e a superlotação são causas do resultado, pois sem elas o naufrágio não teria ocorrido como ocorreu; as condições do mar não rompem o nexo, por serem concausas que não produzem o resultado por si sós.</p>
                 </div>
             </div>
 
             <!-- Real Case 3: Helicóptero da FAB / Missão Externa -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 border-l-4 border-l-emerald-800">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 3 • STM / STF</span>
+                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Hipotético • Fixação</span>
                     <span class="text-xs font-semibold text-emerald-800">Território por Extensão (Art. 5º, § 1º, CP)</span>
                 </div>
                 <h3 class="serif-title text-lg font-bold text-slate-900">Aeronave Militar Brasileira em Solo Estrangeiro</h3>
                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    Durante uma missão de paz e cooperação humanitária internacional na América do Sul, um militar a bordo de um helicóptero da Força Aérea Brasileira (aeronave pública militar) cometeu um delito enquanto a aeronave estava pousada em base estrangeira.
+                    Durante uma missão de paz e cooperação humanitária internacional na América do Sul, um militar a bordo de um helicóptero da Força Aérea Brasileira (aeronave pública militar) cometeu um delito enquanto a aeronave estava pousada em base estrangeira. <em>(Situação hipotética, correspondente à Questão 1 do simulado; não se refere a um precedente específico.)</em>
                 </p>
                 <div class="p-4 bg-stone-50 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1">
                     <p class="font-bold text-slate-900">📌 Síntese da Solução Jurídica:</p>
-                    <p>Com fulcro no artigo 5º, § 1º, do Código Penal, as aeronaves e embarcações brasileiras de natureza pública ou a serviço do governo brasileiro são consideradas <strong>extensão do território nacional onde quer que se encontrem</strong>. A jurisdição e a lei aplicável foram integralmente brasileiras.</p>
+                    <p>Com fulcro no artigo 5º, § 1º, do Código Penal, as aeronaves e embarcações brasileiras de natureza pública ou a serviço do governo brasileiro são consideradas <strong>extensão do território nacional onde quer que se encontrem</strong>. Aplica-se, portanto, a lei brasileira. <strong>Observação:</strong> se o fato configurar crime militar, a norma aplicável é o Código Penal Militar (Art. 7º do CPM, de conteúdo semelhante), com julgamento pela Justiça Militar.</p>
                 </div>
             </div>
 
             <!-- Real Case 4: Anvisa e Cloridrato de Fenproporex -->
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3 border-l-4 border-l-amber-700">
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 4 • STJ</span>
+                    <span class="text-xs font-bold bg-slate-900 text-amber-200 px-3 py-1 rounded-md">Caso Real nº 3 • STF</span>
                     <span class="text-xs font-semibold text-amber-800">Norma Penal em Branco Heterogênea & Abolitio Criminis</span>
                 </div>
-                <h3 class="serif-title text-lg font-bold text-slate-900">Inclusão e Retirada de Substâncias da Portaria SVS/MS 344/98</h3>
+                <h3 class="serif-title text-lg font-bold text-slate-900">O Caso do Lança-Perfume (Cloreto de Etila) e a Portaria SVS/MS 344/98</h3>
                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    Um réu foi processado por tráfico de drogas pelo comércio de substância anabolizante/saciogênica. Durante o curso do processo penal, a ANVISA editou nova resolução alterando as listas anexas à Portaria 344/98, retirando a referida substância do rol de proibições sanitárias.
+                    Em dezembro de 2000, a ANVISA editou a Resolução RDC 104/2000, que retirou o cloreto de etila (principal componente do lança-perfume) da lista de substâncias entorpecentes anexa à Portaria SVS/MS 344/98. Dias depois, a substância foi reincluída na lista. Discutiu-se o efeito dessa exclusão temporária sobre quem havia praticado tráfico de lança-perfume antes da resolução.
                 </p>
                 <div class="p-4 bg-stone-50 rounded-xl text-xs sm:text-sm text-slate-700 space-y-1">
                     <p class="font-bold text-slate-900">📌 Síntese da Solução Jurídica:</p>
-                    <p>O STJ pacificou que a alteração do complemento de uma norma penal em branco heterogênea que deixa de considerar determinada substância como ilícita opera efeito retroativo benigno (<em>abolitio criminis</em> - Art. 2º, CP), extinguindo a punibilidade e os efeitos penais da condenação.</p>
+                    <p>No HC 94.397/BA, o STF reconheceu que a exclusão do cloreto de etila da lista, ainda que temporária, operou <em>abolitio criminis</em> (Art. 2º, CP) quanto aos fatos anteriores, pois a alteração do complemento de norma penal em branco heterogênea que deixa de considerar a substância proibida retroage em benefício do réu, extinguindo a punibilidade (Art. 107, III, CP).</p>
                 </div>
             </div>
         </section>
@@ -612,7 +612,7 @@
             <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <h2 class="serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-2">Simulado Prático em Casos Concretos (25 Questões)</h2>
                 <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                    Responda às 25 questões baseadas no formulário de fixação do exame. As questões cobrem Território por Extensão, Ubiquidade, Atividade, Lei Nova em Crime Habitual, Anterioridade, Lex Mitior, Norma Penal em Branco e Conflito de Normas. Selecione as respostas para obter fundamentação doutrinária instantânea.
+                    Responda às 25 questões baseadas no formulário de fixação do exame. As questões cobrem Território por Extensão, Ubiquidade, Atividade, Lei Nova em Crime Habitual, Anterioridade, Lex Mitior, Norma Penal em Branco, Conflito de Normas, Nexo Causal, Dolo e Culpa, Erro, Iter Criminis, Ilicitude e Culpabilidade. Selecione as respostas para obter fundamentação doutrinária instantânea.
                 </p>
             </div>
 
@@ -630,6 +630,9 @@
                     </button>
                     <button onclick="filterSimulado('normas')" id="qf-normas" class="qfilter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200">
                         Norma em Branco & Conflitos
+                    </button>
+                    <button onclick="filterSimulado('teoria')" id="qf-teoria" class="qfilter-btn text-xs font-semibold px-3 py-1.5 rounded-lg bg-stone-100 text-slate-700 hover:bg-stone-200">
+                        Fato Típico, Ilicitude & Culpabilidade
                     </button>
                 </div>
                 <span class="text-xs text-slate-500 font-semibold" id="simulado-count-label">Exibindo 25 questões</span>
@@ -701,7 +704,7 @@
                     "D) Aeronave privada nunca pode ser considerada extensão do território brasileiro."
                 ],
                 correct: 2,
-                explanation: "Fundamentação Legal: Art. 5º, § 2º, do CP. As aeronaves privadas brasileiras só se equiparam ao território nacional quando em alto-mar ou no espaço aéreo correspondente, ou quando pousadas em solo nacional."
+                explanation: "Fundamentação Legal: Art. 5º, § 1º, do CP. As aeronaves privadas brasileiras só se consideram extensão do território nacional quando estiverem no espaço aéreo correspondente ao alto-mar. Fora disso, em espaço aéreo estrangeiro, a lei brasileira só pode alcançar o fato pela extraterritorialidade condicionada (Art. 7º, II, c). O § 2º trata do caso inverso: aeronaves e embarcações estrangeiras privadas em território ou espaço aéreo brasileiro."
             },
             {
                 id: 3,
@@ -748,12 +751,12 @@
                 question: "6. (Lei Nova em Crime Habitual/Permanente) Imagine agora que Tício tenha praticado atos de perseguição em fevereiro, março e também em abril, continuando a conduta após a entrada em vigor da lei que criou o art. 147-A do CP. Qual aspecto passa a ser decisivo para a análise?",
                 options: [
                     "A) O fato de a vítima ter nacionalidade brasileira.",
-                    "B) A continuidade da reiteração após a entrada em vigor da nova lei, incidindo a lei nova nos termos da Súmula 711 do STF.",
+                    "B) A continuidade da reiteração após a entrada em vigor da nova lei, incidindo a lei nova por aplicação do raciocínio da Súmula 711 do STF.",
                     "C) Apenas a data em que a vítima comunicou o fato à polícia.",
                     "D) Apenas o local onde a primeira mensagem foi enviada."
                 ],
                 correct: 1,
-                explanation: "Fundamentação Jurisprudencial: Súmula 711 do STF. Se a conduta permanente/continuada prossegue na vigência da lei nova mais severa, esta é perfeitamente aplicável."
+                explanation: "Fundamentação Jurisprudencial: Súmula 711 do STF. A súmula trata expressamente do crime continuado e do permanente; a doutrina majoritária estende o mesmo raciocínio ao crime habitual (como a perseguição), de modo que, se a reiteração prossegue na vigência da lei nova, esta é aplicável."
             },
             {
                 id: 7,
@@ -849,7 +852,7 @@
             {
                 id: 14,
                 tag: "normas",
-                question: "14. (Consunção) Quando um delito funciona como meio necessário ou fase normal de preparação/execução de outro crime mais grave, opera-se o princípio da:",
+                question: "14. (Consunção) Quando um delito funciona como meio necessário ou fase normal de preparação/execução de outro crime, opera-se o princípio da:",
                 options: [
                     "A) Anterioridade.",
                     "B) Consunção (Absorção).",
@@ -887,8 +890,8 @@
             },
             {
                 id: 17,
-                tag: "tempolugar",
-                question: "17. (Nexo Causal e Causa Superveniente) O agente desfere um tiro de raspão na vítima. No hospital, enquanto recebe atendimento simples, desaba o teto da ala cirúrgica por falha estrutural do prédio e a vítima morre por traumatismo craniano decorrente do desabamento. O agente do disparo responde por:",
+                tag: "teoria",
+                question: "17. (Nexo Causal e Causa Superveniente) O agente, com intenção de matar, desfere um tiro que atinge a vítima de raspão. No hospital, enquanto recebe atendimento simples, desaba o teto da ala cirúrgica por falha estrutural do prédio e a vítima morre por traumatismo craniano decorrente do desabamento. O agente do disparo responde por:",
                 options: [
                     "A) Homicídio consumado.",
                     "B) Tentativa de homicídio, pois a causa superveniente relativamente independente produziu o resultado por si só (Art. 13, § 1º, CP).",
@@ -896,11 +899,11 @@
                     "D) Isenção total de pena por crime impossível."
                 ],
                 correct: 1,
-                explanation: "Fundamentação Legal: Art. 13, § 1º, do CP. A causa superveniente que por si só produziu o resultado rompe o nexo causal do homicídio consumado, respondendo o agente pelos atos praticados (tentativa)."
+                explanation: "Fundamentação Legal: Art. 13, § 1º, do CP. A causa superveniente que por si só produziu o resultado rompe o nexo causal do homicídio consumado, respondendo o agente pelos atos praticados (tentativa de homicídio, já que agiu com intenção de matar; se quisesse apenas ferir, responderia por lesão corporal)."
             },
             {
                 id: 18,
-                tag: "tempolugar",
+                tag: "teoria",
                 question: "18. (Dolo Eventual x Culpa Consciente) O motorista que trafega em altíssima velocidade em via urbana, prevê a possibilidade de atropelamento, mas assume expressamente o risco de matar pedestres, agindo com indiferença (*'tanto faz'*), atua com:",
                 options: [
                     "A) Culpa inconsciente.",
@@ -913,7 +916,7 @@
             },
             {
                 id: 19,
-                tag: "normas",
+                tag: "teoria",
                 question: "19. (Erro de Tipo) O caçador que, em floresta densa, supõe piamente estar atirando em um animal selvagem, mas atinge outro caçador que usava camuflagem, incorre em:",
                 options: [
                     "A) Erro de proibição.",
@@ -926,7 +929,7 @@
             },
             {
                 id: 20,
-                tag: "normas",
+                tag: "teoria",
                 question: "20. (Erro de Proibição) O cidadão estrangeiro que comete um fato no Brasil conhecendo exatamente o ato que pratica, mas acreditando erroneamente que tal conduta é permitida pelo direito brasileiro, incorre em:",
                 options: [
                     "A) Erro de tipo.",
@@ -939,7 +942,7 @@
             },
             {
                 id: 21,
-                tag: "normas",
+                tag: "teoria",
                 question: "21. (Desistência Voluntária) O agente que voluntariamente abandona a execução do crime antes de esgotar todos os meios que tinha à disposição responde por:",
                 options: [
                     "A) Tentativa do crime pretendido.",
@@ -952,7 +955,7 @@
             },
             {
                 id: 22,
-                tag: "normas",
+                tag: "teoria",
                 question: "22. (Arrependimento Posterior) Nos crimes cometidos sem violência ou grave ameaça à pessoa, se o agente repara voluntariamente o dano até o recebimento da denúncia ou da queixa, opera-se:",
                 options: [
                     "A) Abolitio criminis.",
@@ -965,7 +968,7 @@
             },
             {
                 id: 23,
-                tag: "normas",
+                tag: "teoria",
                 question: "23. (Crime Impossível) A tentativa de homicídio praticada disparando uma arma de brinquedo de plástico incapaz de disparar projéteis contra a vítima caracteriza:",
                 options: [
                     "A) Tentativa punível com redução máxima.",
@@ -978,7 +981,7 @@
             },
             {
                 id: 24,
-                tag: "normas",
+                tag: "teoria",
                 question: "24. (Legítima Defesa) Quem repele injusta agressão, atual ou iminente, a direito seu ou de outrem, usando moderadamente dos meios necessários, atua sob:",
                 options: [
                     "A) Causa de exclusão da culpabilidade.",
@@ -991,7 +994,7 @@
             },
             {
                 id: 25,
-                tag: "normas",
+                tag: "teoria",
                 question: "25. (Imputabilidade Penal) Segundo o Código Penal brasileiro (Art. 26), é isento de pena o agente que, por doença mental ou desenvolvimento mental incompleto ou retardado, era, ao tempo da ação ou da omissão:",
                 options: [
                     "A) Inteiramente incapaz de entender o caráter ilícito do fato ou de determinar-se de acordo com esse entendimento.",
@@ -1012,7 +1015,7 @@
             { term: "Dolo Eventual", definition: "Modalidade de dolo em que o agente não quer diretamente o resultado, mas prevê sua ocorrência e assume o risco de produzi-lo (Art. 18, I, CP)." },
             { term: "Culpa Consciente", definition: "Modalidade em que o agente prevê a possibilidade do resultado, mas confia sinceramente que sua habilidade impedirá a consumação." },
             { term: "Consunção (Princípio da)", definition: "Princípio de solução do conflito aparente de normas em que o crime-meio é absorvido pelo crime-fim." },
-            { term: "Saisine Penal / Irretroatividade", definition: "A lei penal não retroagirá, salvo para beneficiar o réu (Art. 5º, XL, CF)." }
+            { term: "Irretroatividade da Lei Penal", definition: "A lei penal não retroagirá, salvo para beneficiar o réu (Art. 5º, XL, CF)." }
         ];
 
         // --- STATE VARIABLES ---
@@ -1070,8 +1073,8 @@
                 data: {
                     labels: ['Aplicação da Lei Penal', 'Fato Típico & Nexo', 'Ilicitude & Legítima Defesa', 'Culpabilidade & Erros', 'Iter Criminis & Tentativa'],
                     datasets: [{
-                        label: 'Incidência Prova/Concursos (%)',
-                        data: [35, 25, 15, 15, 10],
+                        label: 'Número de questões',
+                        data: [16, 3, 1, 2, 3],
                         backgroundColor: [
                             'rgba(136, 19, 55, 0.85)',
                             'rgba(15, 23, 42, 0.85)',
@@ -1086,7 +1089,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        y: { beginAtZero: true, max: 40, ticks: { callback: v => v + '%' } }
+                        y: { beginAtZero: true, ticks: { precision: 0 } }
                     },
                     plugins: {
                         legend: { display: false }
@@ -1101,7 +1104,7 @@
                 data: {
                     labels: ['1. Fato Típico (Conduta+Nexo+Tipicidade)', '2. Ilicitude (Antijuridicidade)', '3. Culpabilidade (Reprovabilidade)'],
                     datasets: [{
-                        data: [50, 25, 25],
+                        data: [1, 1, 1],
                         backgroundColor: ['#881337', '#0f172a', '#d97706'],
                         borderWidth: 2,
                         borderColor: '#ffffff'
@@ -1111,7 +1114,8 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'bottom' }
+                        legend: { position: 'bottom' },
+                        tooltip: { enabled: false }
                     }
                 }
             });
